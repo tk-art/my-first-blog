@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% block title %}トップページ{% endblock %}
+
+{% block content %}
+<header class="bg-primary text-light py-5">
+    <div class="row justify-content-between">
+        <div class="col-md-6 text-left">
+            <h1>food exchange</h1>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="/signup" class="btn btn-light">新規登録</a>
+            <a href="/login" class="btn btn-light">ログイン</a>
+        </div>
+    </div>
+</header>
+
+<footer class="bg-light text-center py-3">
+    <p>© 2023 My Website. All rights reserved.</p>
+</footer>
+{% endblock %}

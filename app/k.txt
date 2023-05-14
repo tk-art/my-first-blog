@@ -1,25 +1,20 @@
-{% extends 'base.html' %}
-{% block content %}
+<body>
 	<div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="col-md-6">
-				{% if error_message %}
-				  <p>{{ error_message }}</p>
-				{% endif %}
 				<div class="card">
 					<div class="card-header">
 						ログイン
 					</div>
 					<div class="card-body">
-						<form method="post">
-						  {% csrf_token %}
+						<form>
 							<div class="form-group">
 								<label for="username">ユーザー名</label>
-								<input type="text" class="form-control" id="username" name="username" required>
+								<input type="text" class="form-control" id="username" name="username">
 							</div>
 							<div class="form-group">
 								<label for="password">パスワード</label>
-								<input type="password" class="form-control" id="password" name="password" required>
+								<input type="password" class="form-control" id="password" name="password">
 							</div>
 							<button type="submit" class="btn btn-primary">ログイン</button>
 						</form>
@@ -28,5 +23,3 @@
 			</div>
 		</div>
 	</div>
-
-{% endblock %}
