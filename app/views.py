@@ -1,10 +1,11 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render,redirect
 from .forms import SignupForm
 
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 
 
@@ -25,7 +26,6 @@ def signup(request):
             password = make_password(form.cleaned_data.get('password'))
 
             user = CustomUser.objects.create(username=username, email=email, password=password)
-            user.save()
             login(request, user)
             return redirect('profile')
 
@@ -44,12 +44,20 @@ def login_form(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('profile')
+            return redirect('top')
         else:
             error_message = 'ユーザーネームかパスワードが違いますね、もう一度お試しを'
 
     return render(request, 'login.html', {'error_message': error_message})
 
 
+@require_POST
+def logout_view(request):
+    logout(request)
+    return redirect('top')
+
+
+
+@login_required
 def profile(request):
   return render(request,'profile.html', { 'user': request.user })
