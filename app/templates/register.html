@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}食材登録{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          食材登録
+        </div>
+        <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="name">食材名</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="category">カテゴリ</label>
+            <select id="category" name="category">
+              <option value="vegetable">野菜</option>
+              <option value="fruit">果物</option>
+              <option value="meat">肉</option>
+              <option value="meat">魚</option>
+              <option value="meat">お菓子</option>
+            </select>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="deadline">期限</label>
+            <input type="date" class="form-control" id="deadline" name="deadline" required>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="quantity">数量</label>
+            <select class="form-control" id="quantity" name="quantity" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="image">画像</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">登録</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

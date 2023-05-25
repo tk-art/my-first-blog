@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render,redirect
-from .forms import SignupForm
+from .forms import SignupForm, ItemForm
 
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
@@ -61,3 +61,21 @@ def logout_view(request):
 @login_required
 def profile(request):
   return render(request,'profile.html', { 'user': request.user })
+
+@login_required
+def register_view(request):
+    if request.method == 'POST':
+      form = ItemForm(request.POST, request.FILES)
+      if form.is_valid():
+        item = form.save(commit=False)
+        item.user = request.user
+        item.save()
+        print(item)
+        return redirect('food_information')
+    else:
+        form = ItemForm()
+
+    return render(request,'register.html', { 'user': request.user })
+
+def food_information(request):
+  return render(request,'food_information.html', { 'uesr': request.user })
