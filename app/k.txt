@@ -8,6 +8,5 @@ services:
     environment:
       - MYSQL_CHARACTER_SET_RESULTS=utf8mb4
 
-あとはmy．cnfを使うかalterを使う
-
-collationを変更
+cssが適用されていない
+ブラウザでstatic_urlにアクセスしたが、更新されていなかった

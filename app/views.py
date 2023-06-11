@@ -1,17 +1,20 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from .forms import SignupForm, ItemForm
 
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+#from django.views.decorators.http import require_POST
+from .models import Item
 
 
 
 
 
 # Create your views here.
+
+
 
 def top(request):
   return render(request, 'top.html')
@@ -51,7 +54,7 @@ def login_form(request):
     return render(request, 'login.html', {'error_message': error_message})
 
 
-@require_POST
+
 def logout_view(request):
     logout(request)
     return redirect('top')
@@ -70,12 +73,15 @@ def register_view(request):
         item = form.save(commit=False)
         item.user = request.user
         item.save()
-        print(item)
-        return redirect('food_information')
+        return redirect('food_information', item_id=item.id)
     else:
         form = ItemForm()
 
     return render(request,'register.html', { 'user': request.user })
 
-def food_information(request):
-  return render(request,'food_information.html', { 'uesr': request.user })
+def food_information(request, item_id):
+  item = Item.objects.get(id=item_id)
+  context =  {
+    'item': item,
+  }
+  return render(request,'food_information.html', context)

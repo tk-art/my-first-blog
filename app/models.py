@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     user_permissions = None
 
 class Item(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='items')
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     deadline = models.DateField()
