@@ -17,11 +17,32 @@
             <span class="like-count">{{ item.like_count }}</span>
           </button>
 
+          <button class="like-button"　onclick="showCommentField()">
+            <i class="far fa-comment-alt" id="heart-icon"></i>
+            <span>コメント</span>
+          </button>
+
+          <button class="comment-button" onclick="showCommentField()">コメントする</button>
           <button class="myclass">ほしい！！</button>
+
+          <div id="comment-field" style="display: none;">
+            <textarea id="comment-textarea" rows="4" cols="50"></textarea>
+            <button onclick="submitComment()">送信</button>
+          </div>
+
+　　　　　
+
+          <div id="comment-field" style="display: none;">
+            <textarea id="comment-textarea" rows="4" cols="50"></textarea>
+            <button onclick="submitComment()">送信</button>
+          </div>
       </div>
   </div>
 </div>
-</div>
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -48,6 +69,20 @@
         console.log(error);
       }
   });
+}
+
+
+function showCommentField() {
+  var commentField = document.getElementById("comment-field");
+  commentField.style.display = "block";
+}
+
+function submitComment() {
+  var commentTextarea = document.getElementById("comment-textarea");
+  var commentText = commentTextarea.value;
+
+  // コメントを送信するための処理を追加
+  // ここでAjaxリクエストを使用してサーバにコメントを送信するなどの処理を行います
 }
 </script>
 

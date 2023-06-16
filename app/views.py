@@ -78,7 +78,6 @@ def register_view(request):
 
 def food_information(request, item_id):
   item = get_object_or_404(Item, pk=item_id)
-
   return render(request,'food_information.html', { 'item': item, })
 
 
@@ -102,3 +101,20 @@ def like_item(request, item_id):
       'like_count': item.like_count
     }
     return JsonResponse(response_data)
+
+def comment_item(request):
+    item = get_object_or_404(Item, pk=item_id)
+
+    if request.method == 'POST':
+        # POSTリクエストの場合はコメントを作成または保存する処理を記述
+        comment_text = request.POST.get('comment_text')
+        comment = Comment(item=item, text=comment_text)
+        comment.save()
+
+        # コメントが正常に保存された場合、成功レスポンスを返す
+        response_data = {'success': True}
+        return JsonResponse(response_data)
+
+    # POST以外のリクエストの場合はエラーレスポンスを返す
+    response_data = {'error': 'Invalid request method'}
+    return JsonResponse(response_data, status=400)
