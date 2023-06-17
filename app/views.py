@@ -8,8 +8,10 @@ from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
 from .models import Item
 from .models import Like
+from .models import Comment
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+
 
 def top(request):
   return render(request, 'top.html')
@@ -102,19 +104,18 @@ def like_item(request, item_id):
     }
     return JsonResponse(response_data)
 
-def comment_item(request):
+@login_required
+def comment_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
+    user = request.user
 
     if request.method == 'POST':
-        # POSTリクエストの場合はコメントを作成または保存する処理を記述
         comment_text = request.POST.get('comment_text')
-        comment = Comment(item=item, text=comment_text)
+        comment = Comment(user=user, item=item, text=comment_text)
         comment.save()
 
-        # コメントが正常に保存された場合、成功レスポンスを返す
         response_data = {'success': True}
         return JsonResponse(response_data)
 
-    # POST以外のリクエストの場合はエラーレスポンスを返す
     response_data = {'error': 'Invalid request method'}
     return JsonResponse(response_data, status=400)
