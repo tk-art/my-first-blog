@@ -17,3 +17,63 @@ success: function(response) {
 error: function(xhr, status, error) {
   // リクエストが失敗した場合の処理を記述する
 }
+
+
+
+/*
+$(document).ready(function() {
+  $('#commentForm').on('submit', function(event) {
+    event.preventDefault(); // フォームのデフォルトの送信をキャンセル
+
+    var commentText = $('#comment_text').val();
+    var csrftoken = getCookie('csrftoken'); // CSRFトークンの取得（別途実装が必要）
+
+    $.ajax({
+      type: 'POST',
+      url: '/comment_item/',
+      headers: {
+        'X-CSRFToken': csrftoken
+      },
+      data: {
+        comment_text: commentText
+      },
+      success: function(response) {
+        if (response.success) {
+          // コメントが正常に保存された場合の処理
+          // 例えば、コメントの表示を更新するなどの操作を行う
+        } else {
+          // エラーが発生した場合の処理
+        }
+      },
+      error: function(xhr, status, error) {
+        // リクエストが失敗した場合の処理
+      }
+    });
+  });
+});
+
+function likeButtonClicked() {
+var itemId = "{{ item.id }}";
+
+$.ajax({
+  type: "POST",
+  url: "/like_item/" + itemId + "/",
+  data: {
+    item_id: itemId,
+    csrfmiddlewaretoken: "{{ csrf_token }}",
+  },
+  success: function(response) {
+      if (response.is_liked) {
+        $("#heart-icon").removeClass("far").addClass("fas");
+        $(".like-count").text(response.like_count);
+      } else {
+        $("#heart-icon").removeClass("fas").addClass("far");
+        $(".like-count").text(response.like_count);
+      }
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+});
+}
+*/
