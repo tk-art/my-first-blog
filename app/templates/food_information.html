@@ -24,40 +24,32 @@
 
           <button class="myclass">ほしい！！</button>
 
-          <form method="POST" action="{% url 'comment_item' item_id=item.id %}">
+　　　　　　<h2>コメント</h2>
+
+　　　　　　<form id="comment-form">
+　　　　　　  <input type="text" id="comment-input" placeholder="コメントを入力してください">
+　　　　　　  <button type="submit">コメントする</button>
+　　　　　　</form>
+
+　　　　　　<div id="comment-list">
+　　　　　　  <!-- コメントが追加される部分 -->
+　　　　　　</div>
+
+<!--
+<form method="POST" action="{% url 'comment_item' item_id=item.id %}">
             {% csrf_token %}
             <textarea name="comment_text"></textarea>
             <input type="submit" value="コメントする">
           </form>
+-->
+
       </div>
   </div>
 </div>
-{% endblock %}
 
 <script>
-
-function likeButtonClicked() {
-  var itemId = "{{ item.id }}";
-
-  $.ajax({
-    type: "POST",
-    url: "/like_item/" + itemId + "/",
-    data: {
-      item_id: itemId,
-      csrfmiddlewaretoken: "{{ csrf_token }}",
-    },
-    success: function(response) {
-        if (response.is_liked) {
-          $("#heart-icon").removeClass("far").addClass("fas");
-          $(".like-count").text(response.like_count);
-        } else {
-          $("#heart-icon").removeClass("fas").addClass("far");
-          $(".like-count").text(response.like_count);
-        }
-      },
-      error: function(xhr, status, error) {
-        console.log(error);
-      }
-  });
-  }
+  var itemId = '{{ item.id }}';
+  var csrfToken = '{{ csrf_token }}';
 </script>
+
+{% endblock %}

@@ -24,5 +24,5 @@ class Like(models.Model):
 class Comment(models.Model):
     user  = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    text = models.TextField(blank=False)
+    text = models.TextField(blank=False, null=False)
     created_at = models.DateField(auto_now_add=True)

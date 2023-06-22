@@ -1,79 +1,37 @@
+@login_required
+def comment_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    user = request.user
 
-services:
-  mysql:
-    command: --character-set-results=utf8mb4
+    if request.method == 'POST':
+        comment_text = request.POST.get('text')
+        comment = Comment(user=user, item=item, text=comment_text)
+        comment.save()
 
-services:
-  mysql:
-    environment:
-      - MYSQL_CHARACTER_SET_RESULTS=utf8mb4
+        response_data = {'success': True}
+        return JsonResponse(response_data)
 
-cssが適用されていない
-ブラウザでstatic_urlにアクセスしたが、更新されていなかった
-success: function(response) {
-      // リクエストが成功した場合の処理を記述する
-      // 例: いいね数の更新など
-},
-error: function(xhr, status, error) {
-  // リクエストが失敗した場合の処理を記述する
-}
+    # GETリクエストの場合は既存のコメントを返す
+    comments = Comment.objects.filter(item=item).order_by('-created_at')
+    comment_list = []
+    for comment in comments:
+        comment_list.append({
+            'user_name': comment.user.username,
+            'comment_text': comment.text,
+            'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    response_data = {'comments': comment_list}
+    return JsonResponse(response_data)
 
+<form id="comment-form">
+  <input type="text" id="comment-input" placeholder="コメントを入力してください">
+  <button type="submit">コメントする</button>
+</form>
 
+<div id="comment-list">
+  <!-- コメントが追加される部分 -->
+</div>
 
-/*
-$(document).ready(function() {
-  $('#commentForm').on('submit', function(event) {
-    event.preventDefault(); // フォームのデフォルトの送信をキャンセル
-
-    var commentText = $('#comment_text').val();
-    var csrftoken = getCookie('csrftoken'); // CSRFトークンの取得（別途実装が必要）
-
-    $.ajax({
-      type: 'POST',
-      url: '/comment_item/',
-      headers: {
-        'X-CSRFToken': csrftoken
-      },
-      data: {
-        comment_text: commentText
-      },
-      success: function(response) {
-        if (response.success) {
-          // コメントが正常に保存された場合の処理
-          // 例えば、コメントの表示を更新するなどの操作を行う
-        } else {
-          // エラーが発生した場合の処理
-        }
-      },
-      error: function(xhr, status, error) {
-        // リクエストが失敗した場合の処理
-      }
-    });
-  });
-});
-
-function likeButtonClicked() {
-var itemId = "{{ item.id }}";
-
-$.ajax({
-  type: "POST",
-  url: "/like_item/" + itemId + "/",
-  data: {
-    item_id: itemId,
-    csrfmiddlewaretoken: "{{ csrf_token }}",
-  },
-  success: function(response) {
-      if (response.is_liked) {
-        $("#heart-icon").removeClass("far").addClass("fas");
-        $(".like-count").text(response.like_count);
-      } else {
-        $("#heart-icon").removeClass("fas").addClass("far");
-        $(".like-count").text(response.like_count);
-      }
-    },
-    error: function(xhr, status, error) {
-      console.log(error);
-    }
-});
-}
-*/
+<script>
+  // Ajax関連のJavaScriptコードをここに記述する
+</script>
