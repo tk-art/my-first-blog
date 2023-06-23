@@ -35,3 +35,51 @@ def comment_item(request, item_id):
 <script>
   // Ajax関連のJavaScriptコードをここに記述する
 </script>
+
+
+
+/*
+  // コメントの取得
+function getComments() {
+  $.ajax({
+    type: 'GET',
+    url: '/get_comments/',  // コメントを取得するエンドポイントのURLを適宜変更する
+    success: function(response) {
+      // 取得したコメントを表示する処理をここに記述する
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+}
+
+// コメントの送信
+function sendComment(commentText) {
+  $.ajax({
+    type: 'POST',
+    url: '/send_comment/',  // コメントを送信するエンドポイントのURLを適宜変更する
+    data: {
+      text: commentText,
+      csrfmiddlewaretoken: '{{ csrf_token }}'  // CSRFトークンを適切な方法で取得する
+    },
+    success: function(response) {
+      // コメント送信後の処理をここに記述する
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+}
+
+// ページ読み込み時に既存のコメントを取得して表示
+$(document).ready(function() {
+  getComments();
+});
+
+// コメントフォームの送信ボタンがクリックされた時の処理
+$('#comment-form').submit(function(e) {
+  e.preventDefault();
+  var commentText = $('#comment-input').val();
+  sendComment(commentText);
+});
+*/

@@ -1,14 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, ItemForm
-
+from .forms import SignupForm, ItemForm,CommentForm
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
-from .models import Item
-from .models import Like
-from .models import Comment
+from .models import Item, Like, Comment
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
@@ -104,6 +101,27 @@ def like_item(request, item_id):
     }
     return JsonResponse(response_data)
 
+
+def comment_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    user = request.user
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            comment = Comment.objects.create(user=user, item=item, text=text)
+            # 他の必要な処理を追加する
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = CommentForm()
+
+    return render(request, 'food_information.html', {'form': form})
+
+
+"""
 @login_required
 def comment_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
@@ -119,3 +137,4 @@ def comment_item(request, item_id):
 
     response_data = {'error': 'Invalid request method'}
     return JsonResponse(response_data, status=400)
+    """

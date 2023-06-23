@@ -26,22 +26,14 @@
 
 　　　　　　<h2>コメント</h2>
 
-　　　　　　<form id="comment-form">
-　　　　　　  <input type="text" id="comment-input" placeholder="コメントを入力してください">
-　　　　　　  <button type="submit">コメントする</button>
-　　　　　　</form>
-
-　　　　　　<div id="comment-list">
-　　　　　　  <!-- コメントが追加される部分 -->
-　　　　　　</div>
-
-<!--
-<form method="POST" action="{% url 'comment_item' item_id=item.id %}">
+          <form id="comment-form">
+            <div id="comment-container"></div>
             {% csrf_token %}
-            <textarea name="comment_text"></textarea>
-            <input type="submit" value="コメントする">
+            <input type="text" class="form-control" id="comment" name="comment" required>
+            <button type="submit">送信</button>
           </form>
--->
+
+
 
       </div>
   </div>

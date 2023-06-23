@@ -17,3 +17,8 @@ class ItemForm(forms.ModelForm):
         widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date'}),
         }
+
+
+class CommentForm(forms.ModelForm):
+    text = forms.CharField(widget=forms.Textarea)
+    # 他の必要なフィールドを追加する
