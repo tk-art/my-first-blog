@@ -16,25 +16,28 @@
             <i class="{% if is_liked %}fas{% else %}far{% endif %} fa-heart" id="heart-icon"></i>
             <span class="like-count">{{ item.like_count }}</span>
           </button>
-
-          <button class="like-button">
-            <i class="far fa-comment-alt" id="heart-icon"></i>
-            <span>コメント</span>
-          </button>
+<!--
+<button class="like-button">
+  <i class="far fa-comment-alt" id="heart-icon"></i>
+  <span>コメント</span>
+</button>
+-->
 
           <button class="myclass">ほしい！！</button>
 
 　　　　　　<h2>コメント</h2>
 
+          <div id="comment-container">
+            {% for comment in comments %}
+              <p>{{ comment.text }}</p>
+            {% endfor %}
+          </div>
+
           <form id="comment-form">
-            <div id="comment-container"></div>
             {% csrf_token %}
-            <input type="text" class="form-control" id="comment" name="comment" required>
+            <input type="text" class="form-control" id="text" name="text" required>
             <button type="submit">送信</button>
           </form>
-
-
-
       </div>
   </div>
 </div>

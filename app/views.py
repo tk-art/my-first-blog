@@ -111,8 +111,11 @@ def comment_item(request, item_id):
         if form.is_valid():
             text = form.cleaned_data['text']
             comment = Comment.objects.create(user=user, item=item, text=text)
-            # 他の必要な処理を追加する
-            return JsonResponse({'success': True})
+            comment_data = {
+                'text': comment.text,
+                'user': comment.user.username,
+            }
+            return JsonResponse({'success': True, 'comment': comment_data})
         else:
             return JsonResponse({'success': False, 'errors': form.errors})
     else:

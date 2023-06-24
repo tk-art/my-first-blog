@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Item
+from .models import CustomUser, Item, Comment
 
 
 class SignupForm(forms.ModelForm):
@@ -20,5 +20,6 @@ class ItemForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(widget=forms.Textarea)
-    # 他の必要なフィールドを追加する
+    class Meta:
+        model = Comment
+        fields = ['text']
