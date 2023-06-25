@@ -25,10 +25,11 @@
 
           <button class="myclass">ほしい！！</button>
 
-　　　　　　<h2>コメント</h2>
+　　　　　　<h2>コメント({{ comments.count }})</h2>
 
           <div id="comment-container">
             {% for comment in comments %}
+              <p>{{ comment.user.username }}</p>
               <p>{{ comment.text }}</p>
             {% endfor %}
           </div>

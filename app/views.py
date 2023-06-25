@@ -77,7 +77,8 @@ def register_view(request):
 
 def food_information(request, item_id):
   item = get_object_or_404(Item, pk=item_id)
-  return render(request,'food_information.html', { 'item': item, })
+  comments = Comment.objects.filter(item_id=item_id)
+  return render(request,'food_information.html', { 'item': item, 'comments': comments})
 
 
 
@@ -101,7 +102,7 @@ def like_item(request, item_id):
     }
     return JsonResponse(response_data)
 
-
+@login_required
 def comment_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     user = request.user
@@ -122,22 +123,3 @@ def comment_item(request, item_id):
         form = CommentForm()
 
     return render(request, 'food_information.html', {'form': form})
-
-
-"""
-@login_required
-def comment_item(request, item_id):
-    item = get_object_or_404(Item, pk=item_id)
-    user = request.user
-
-    if request.method == 'POST':
-        comment_text = request.POST.get('comment_text')
-        comment = Comment(user=user, item=item, text=comment_text)
-        comment.save()
-
-        response_data = {'success': True}
-        return JsonResponse(response_data)
-
-    response_data = {'error': 'Invalid request method'}
-    return JsonResponse(response_data, status=400)
-    """
