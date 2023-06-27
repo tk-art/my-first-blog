@@ -2,12 +2,12 @@
 {% block title %}food_information{{ item.id }}{% endblock %}
 {% block content %}
 
-<div class="container">
-  <div class="row">
-      <div class="col-md-6">
+<div class="container fixed">
+  <div class="row row1">
+      <div class="col-md-6 left-column">
           <img src="{{ item.image.url }}" alt="{{ item.name }}" class="image-container" >
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 right-column">
           <h2>{{ item.name }}</h2>
           <h3>消費期限：{{ item.deadline }}まで</h3>
           <h3>個数:{{ item.quantity }}個</h3>
@@ -16,28 +16,22 @@
             <i class="{% if is_liked %}fas{% else %}far{% endif %} fa-heart" id="heart-icon"></i>
             <span class="like-count">{{ item.like_count }}</span>
           </button>
-<!--
-<button class="like-button">
-  <i class="far fa-comment-alt" id="heart-icon"></i>
-  <span>コメント</span>
-</button>
--->
 
           <button class="myclass">ほしい！！</button>
 
-　　　　　　<h2>コメント({{ comments.count }})</h2>
+　　　　　　<h3 class="comment-count">コメント({{ comments.count }})</h2>
 
           <div id="comment-container">
             {% for comment in comments %}
-              <p>{{ comment.user.username }}</p>
-              <p>{{ comment.text }}</p>
+              <p class="comment-user">{{ comment.user.username }}</p>
+              <p class="comment-text">{{ comment.text }}</p>
             {% endfor %}
           </div>
 
           <form id="comment-form">
             {% csrf_token %}
             <input type="text" class="form-control" id="text" name="text" required>
-            <button type="submit">送信</button>
+            <button type="submit" class="btn btn-outline-secondary comment-btn">送信</button>
           </form>
       </div>
   </div>
