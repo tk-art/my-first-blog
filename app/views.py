@@ -76,9 +76,16 @@ def register_view(request):
 
 
 def food_information(request, item_id):
+  self_id = item_id
   item = get_object_or_404(Item, pk=item_id)
+  items = Item.objects.exclude(id=self_id)[:4]
   comments = Comment.objects.filter(item_id=item_id)
-  return render(request,'food_information.html', { 'item': item, 'comments': comments})
+  context = {
+    'item' : item,
+    'comments' : comments,
+    'items' : items,
+  }
+  return render(request,'food_information.html', context)
 
 
 
