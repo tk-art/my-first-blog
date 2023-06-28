@@ -37,13 +37,13 @@
   </div>
 
   <div class="similar-products">
-    <h3>類似商品</h3>
+    <h3 class="similar-headline">類似商品</h3>
     <div class="row">
       {% for item in items %}
         {% if item.id != self_id %}
         <div class="col-md-3">
           <div class="product-item">
-            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
             <h3>{{ item.name }}</h3>
           </div>
         </div>
