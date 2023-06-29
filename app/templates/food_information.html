@@ -3,10 +3,12 @@
 {% block content %}
 
 <div class="container fixed">
-  <div class="row row1">
+  <div class="row">
+
       <div class="col-md-6 left-column">
           <img src="{{ item.image.url }}" alt="{{ item.name }}" class="image-container" >
       </div>
+
       <div class="col-md-6 right-column">
           <h2>{{ item.name }}</h2>
           <h3>消費期限：{{ item.deadline }}まで</h3>
@@ -43,8 +45,11 @@
         {% if item.id != self_id %}
         <div class="col-md-3">
           <div class="product-item">
-            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
-            <h3>{{ item.name }}</h3>
+            <a href="/food_information/{{ item.id }}" class="similar-link">
+              <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
+              <h4 class="similar-item">{{ item.name }}</h4>
+            </a>
+
           </div>
         </div>
         {% endif %}
