@@ -26,3 +26,15 @@ class Comment(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     text = models.TextField(blank=False, null=False)
     created_at = models.DateField(auto_now_add=True)
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
+    like = models.BooleanField(default=False)
+    comment = models.BooleanField(default=False)
+    content = models.TextField()
+    read = models.BooleanField(default=False)
+    timestamp = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return  f"Notification: {self.user} liked/commented on {self.item}"
