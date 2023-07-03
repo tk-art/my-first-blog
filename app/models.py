@@ -30,8 +30,6 @@ class Comment(models.Model):
 class Notification(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
-    like = models.BooleanField(default=False)
-    comment = models.BooleanField(default=False)
     content = models.TextField()
     read = models.BooleanField(default=False)
     timestamp = models.DateField(auto_now_add=True)

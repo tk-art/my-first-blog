@@ -136,5 +136,5 @@ def comment_item(request, item_id):
 
 
 def notification(request):
-    noti = get_object_or_404(Notification, pk=1)
-    return render(request, 'notification.html', {'noti': noti})
+    notifications = Notification.objects.filter(user=request.user, read=False)
+    return render(request, 'notification.html', {'notifications': notifications})

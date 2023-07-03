@@ -2,6 +2,12 @@
 {% block title %}notification{% endblock %}
 {% block content %}
 
-{{ noti.content }}
+{% for notification in notifications %}
+    <div class="notification">
+      <p>{{ notification.content }}</p>
+      <p>{{ notification.timestamp }}</p>
+    </div>
+{% endfor %}
+
 
 {% endblock %}
