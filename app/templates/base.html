@@ -10,32 +10,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <header class="header-back text-light py-5">
-        <div class="row">
-            <div class="col-md-6">
-              <h1 class="logo">food exchange</h1>
-            </div>
-            {% if user.is_authenticated %}
-            <div class="col-md-6">
-              <div class="d-flex justify-content-end">
-                <a href="/profile" class="header-right">プロフィール</a>
-                <a href="/register" class="header-right">登録</a>
-                <a href="/notification" class="header-right">通知</a>
-                <a href="search" class="header-right">検索</a>
+    <header class="header-back py-5">
+      <div class="row">
+        <div class="col-md-6">
+          <a href="/top" class="header-left">food exchange</a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-6">
+          <div class="d-flex justify-content-end">
+            <a href="/profile" class="header-right">プロフィール</a>
+            <a href="/register" class="header-right">登録</a>
+            <a href="/notification" class="header-right">通知</a>
+            <a href="search" class="header-right">検索</a>
 
-                <form method="post" action="/logout/">
-                    {% csrf_token %}
-                    <button type="submit" class="logout btn btn-light">ログアウト</button>
-                </form>
-              </div>
-            </div>
+            <form method="post" action="/logout/">
+                {% csrf_token %}
+                <button type="submit" class="logout btn btn-light">ログアウト</button>
+            </form>
+          </div>
+        </div>
 
-            {% else %}
-            <div>
-                <a href="/signup" class="btn btn-light">新規登録</a>
-                <a href="/login" class="btn btn-light">ログイン</a>
-            </div>
-            {% endif %}
+        {% else %}
+        <div class="col-md-6">
+          <div class="d-flex justify-content-end">
+            <a href="/signup" class="header-right">新規登録</a>
+            <a href="/login" class="header-right">ログイン</a>
+          </div>
+        </div>
+        {% endif %}
         </div>
     </header>　
 
