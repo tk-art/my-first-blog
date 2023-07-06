@@ -38,6 +38,7 @@ function likeButtonClicked() {
   }
 
 
+
 $(document).ready(function() {
     $('#comment-form').submit(function(event) {
         event.preventDefault();

@@ -10,7 +10,8 @@ from django.http import JsonResponse
 
 
 def top(request):
-  return render(request, 'top.html')
+    items = Item.objects.all()
+    return render(request, 'top.html', {'items': items})
 
 def signup(request):
     if request.method == 'POST':
@@ -108,7 +109,8 @@ def like_item(request, item_id):
 
     response_data = {
       'is_liked': is_liked,
-      'like_count': item.like_count
+      'like_count': item.like_count,
+      'unread_count': unread_count,
     }
     return JsonResponse(response_data)
 
@@ -139,5 +141,14 @@ def comment_item(request, item_id):
 
 
 def notification(request):
-    notifications = Notification.objects.filter(user=request.user, read=False)
-    return render(request, 'notification.html', {'notifications': notifications})
+    user = request.user
+    notifications = Notification.objects.filter(user=user)
+
+    #unread_notifications = Notification.get_unread_notifications(user)
+    #unread_count = unread_notifications.count()
+    Notification.objects.filter(user=user, read=False).update(read=True)
+    context = {
+        'notifications': notifications,
+        #'unread_count': unread_count,
+    }
+    return render(request, 'notification.html', context)
