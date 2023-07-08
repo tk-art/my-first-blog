@@ -34,15 +34,5 @@ class Notification(models.Model):
     read = models.BooleanField(default=False)
     timestamp = models.DateField(auto_now_add=True)
 
-    def get_unread_notifications(user):
-        unread_notifications = Notification.objects.filter(user=user, read=False)
-        return unread_notifications
-
-    def mark_notifications_as_read(user):
-        unread_notifications = get_unread_notifications(user)
-        unread_notifications.update(read=True)
-
-
-
     def __str__(self):
         return  f"Notification: {self.user} liked/commented on {self.item}"

@@ -110,7 +110,6 @@ def like_item(request, item_id):
     response_data = {
       'is_liked': is_liked,
       'like_count': item.like_count,
-      'unread_count': unread_count,
     }
     return JsonResponse(response_data)
 
@@ -144,11 +143,13 @@ def notification(request):
     user = request.user
     notifications = Notification.objects.filter(user=user)
 
-    #unread_notifications = Notification.get_unread_notifications(user)
-    #unread_count = unread_notifications.count()
     Notification.objects.filter(user=user, read=False).update(read=True)
-    context = {
-        'notifications': notifications,
-        #'unread_count': unread_count,
-    }
-    return render(request, 'notification.html', context)
+
+    return render(request, 'notification.html', {'notifications': notifications})
+
+def check_new_notifications(request):
+    user = request.user
+    has_new_notifications = Notification.objects.filter(user=user, read=False).exists()
+
+    response_data = {'hasNewNotification': has_new_notifications}
+    return JsonResponse(response_data)

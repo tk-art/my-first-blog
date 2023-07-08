@@ -54,7 +54,7 @@ $(document).ready(function() {
                   var commentUser = response.comment.user;
                   var commentText = response.comment.text;
                   var commentUserElement = $('<p>').text(commentUser);
-                  var commentTextElement = $('<p>').text(commentText);
+                  var commentTextElement = $('<p>').text(commentText).addClass('comment-text');
                   $('#comment-container').append(commentUserElement);
                   $('#comment-container').append(commentTextElement);
                   form.find('#text').val('');
@@ -67,4 +67,34 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+$(document).ready(function() {
+  // 通知の新規有無を確認する関数を定義します
+  function checkNewNotifications() {
+    $.ajax({
+      url: '/api/notifications/check',
+      method: 'GET',
+      success: function(response) {
+        console.log(response);
+        // バックエンドからのレスポンスを確認し、通知があればshowNewNotification()関数を呼び出す
+        if (response.hasNewNotification) {
+          showNewNotification();
+        }
+      },
+      error: function(error) {
+        console.log('通知の問い合わせに失敗しました。', error);
+      }
+    });
+  }
+
+  checkNewNotifications();
+
+  $('#notification-link').click(function() {
+    $('#notification-icon').empty();
+  });
+
+  function showNewNotification() {
+    $('#notification-icon').html('⭕️');
+  }
 });
