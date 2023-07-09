@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}food_information{{ item.id }}{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-6">
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" class="image-container" >
+      </div>
+      <div class="col-md-6">
+          <h2>{{ item.name }}</h2>
+          <h3>消費期限：{{ item.deadline }}まで</h3>
+          <h3>個数:{{ item.quantity }}個</h3>
+          <i class="far fa-heart" id="heart-icon"></i>
+
+          <button class="myclass">ほしい！！</button>
+      </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}

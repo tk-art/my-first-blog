@@ -9,10 +9,17 @@
             <h1>food exchange</h1>
         </div>
         {% if user.is_authenticated %}
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-light">ログアウト</button>
-        </form>
+        <div class="col-md-6 text-light">
+            <a href="/profile" class="btn btn-light">プロフィール</a>
+            <a href="/register" class="btn btn-light">登録</a>
+            <a href="search" class="btn btn-light">検索</a>
+
+            <form method="post" action="/logout/">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-light">ログアウト</button>
+            </form>
+        </div>
+
         {% else %}
         <div>
             <a href="/signup" class="btn btn-light">新規登録</a>
