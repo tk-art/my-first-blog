@@ -2,16 +2,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import SignupForm, ItemForm,CommentForm
 from django.contrib.auth.hashers import make_password
-from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
-from .models import Item, Like, Comment
+from .models import CustomUser, Item, Like, Comment, Notification
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
 
 def top(request):
-  return render(request, 'top.html')
+    items = Item.objects.all()
+    return render(request, 'top.html', {'items': items})
 
 def signup(request):
     if request.method == 'POST':
@@ -97,17 +97,22 @@ def like_item(request, item_id):
     if created:
         item.like_count += 1
         is_liked = True
+        notification_content = f"{request.user.username}さんがアイテム「{item.name}」にいいねしました"
+        Notification.objects.create(user=item.user, item=item, content=notification_content)
+
     else:
         like.delete()
         item.like_count -= 1 if item.like_count > 0 else 0
         is_liked = False
 
     item.save()
+
     response_data = {
       'is_liked': is_liked,
-      'like_count': item.like_count
+      'like_count': item.like_count,
     }
     return JsonResponse(response_data)
+
 
 @login_required
 def comment_item(request, item_id):
@@ -119,6 +124,8 @@ def comment_item(request, item_id):
         if form.is_valid():
             text = form.cleaned_data['text']
             comment = Comment.objects.create(user=user, item=item, text=text)
+            notification_content = f"{user.username}さんがアイテム「{item.name}」にコメントしました"
+            Notification.objects.create(user=item.user, item=item, content=notification_content)
             comment_data = {
                 'text': comment.text,
                 'user': comment.user.username,
@@ -130,3 +137,19 @@ def comment_item(request, item_id):
         form = CommentForm()
 
     return render(request, 'food_information.html', {'form': form})
+
+
+def notification(request):
+    user = request.user
+    notifications = Notification.objects.filter(user=user)
+
+    Notification.objects.filter(user=user, read=False).update(read=True)
+
+    return render(request, 'notification.html', {'notifications': notifications})
+
+def check_new_notifications(request):
+    user = request.user
+    has_new_notifications = Notification.objects.filter(user=user, read=False).exists()
+
+    response_data = {'hasNewNotification': has_new_notifications}
+    return JsonResponse(response_data)

@@ -77,9 +77,20 @@ table.reg_form{
   color: #939393;
 }
 
+/* header */
 .header-back {
   background-color: rgb(66, 81, 150);
   margin-bottom: 50px;
+}
+
+.header-left {
+  color: #fff;
+  text-decoration: none;
+  font-size: 30px;
+  margin-left: 50px;
+}
+.header-left:hover {
+  color: #fff;
 }
 
 .header-right {
@@ -157,4 +168,14 @@ table.reg_form{
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
+}
+
+/* 通知のtimestamp */
+.notification {
+  margin: 0 auto;
+  text-align: center;
+}
+.content {
+  display: inline-block;
+  text-align: left;
 }

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}notification{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      {% for notification in notifications　reversed %}
+      <div class="notification">
+        <p class="content">
+          {{ notification.content }}<br>
+          {{ notification.timestamp }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
