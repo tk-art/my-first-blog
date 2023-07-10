@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
   var heartIcon = $("#heart-icon");
   var likeCount = $(".like-count");
@@ -23,12 +24,10 @@ function likeButtonClicked() {
         if (response.is_liked) {
           heartIcon.removeClass("far").addClass("fas");
           likeCount.text(response.like_count);
-          localStorage.setItem("likeStatus", "liked");
 
         } else {
           heartIcon.removeClass("fas").addClass("far");
           likeCount.text(response.like_count);
-          localStorage.removeItem("likeStatus");
         }
       },
       error: function(xhr, status, error) {

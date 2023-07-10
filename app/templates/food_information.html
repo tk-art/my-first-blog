@@ -15,7 +15,7 @@
           <h3>個数 : {{ item.quantity }}個</h3>
 
           <button class="like-button" onclick="likeButtonClicked()">
-            <i class="far fa-heart" id="heart-icon"></i>
+            <i class="{% if is_liked %}fas{% else %}far fa-heart" id="heart-icon"></i>
             <span class="like-count">{{ item.like_count }}</span>
           </button>
 
