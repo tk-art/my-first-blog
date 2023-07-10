@@ -14,3 +14,9 @@ class Item(models.Model):
     deadline = models.DateField()
     quantity = models.PositiveIntegerField()
     image = models.ImageField(upload_to='item_images/')
+    like_count = models.PositiveIntegerField(default=0)
+
+class Like(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

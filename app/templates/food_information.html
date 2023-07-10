@@ -11,12 +11,44 @@
           <h2>{{ item.name }}</h2>
           <h3>消費期限：{{ item.deadline }}まで</h3>
           <h3>個数:{{ item.quantity }}個</h3>
-          <i class="far fa-heart" id="heart-icon"></i>
+
+          <button class="like-button" onclick="likeButtonClicked()">
+            <i class="{% if is_liked %}fas{% else %}far{% endif %} fa-heart" id="heart-icon"></i>
+            <span class="like-count">{{ item.like_count }}</span>
+          </button>
 
           <button class="myclass">ほしい！！</button>
       </div>
   </div>
 </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function likeButtonClicked() {
+  var itemId = "{{ item.id }}";
+
+  $.ajax({
+    type: "POST",
+    url: "/like_item/" + itemId + "/",
+    data: {
+      item_id: itemId,
+      csrfmiddlewaretoken: "{{ csrf_token }}",
+    },
+    success: function(response) {
+        if (response.is_liked) {
+          $("#heart-icon").removeClass("far").addClass("fas");
+          $(".like-count").text(response.like_count);
+        } else {
+          $("#heart-icon").removeClass("fas").addClass("far");
+          $(".like-count").text(response.like_count);
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log(error);
+      }
+  });
+}
+</script>
 
 {% endblock %}

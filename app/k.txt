@@ -10,3 +10,10 @@ services:
 
 cssが適用されていない
 ブラウザでstatic_urlにアクセスしたが、更新されていなかった
+success: function(response) {
+      // リクエストが成功した場合の処理を記述する
+      // 例: いいね数の更新など
+},
+error: function(xhr, status, error) {
+  // リクエストが失敗した場合の処理を記述する
+}

@@ -7,14 +7,9 @@ from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
 from .models import Item
-
-
-
-
-
-# Create your views here.
-
-
+from .models import Like
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 def top(request):
   return render(request, 'top.html')
@@ -79,9 +74,31 @@ def register_view(request):
 
     return render(request,'register.html', { 'user': request.user })
 
+
+
 def food_information(request, item_id):
-  item = Item.objects.get(id=item_id)
-  context =  {
-    'item': item,
-  }
-  return render(request,'food_information.html', context)
+  item = get_object_or_404(Item, pk=item_id)
+
+  return render(request,'food_information.html', { 'item': item, })
+
+
+
+@login_required
+def like_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    like, created = Like.objects.get_or_create(user=request.user, item=item)
+
+    if created:
+        item.like_count += 1
+        is_liked = True
+    else:
+        like.delete()
+        item.like_count -= 1 if item.like_count > 0 else 0
+        is_liked = False
+
+    item.save()
+    response_data = {
+      'is_liked': is_liked,
+      'like_count': item.like_count
+    }
+    return JsonResponse(response_data)
