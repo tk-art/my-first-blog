@@ -2,12 +2,12 @@
 {% block title %}food_information{{ item.id }}{% endblock %}
 {% block content %}
 
-<div class="container">
-  <div class="row">
-      <div class="col-md-6">
+<div class="container fixed">
+  <div class="row row1">
+      <div class="col-md-6 left-column">
           <img src="{{ item.image.url }}" alt="{{ item.name }}" class="image-container" >
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 right-column">
           <h2>{{ item.name }}</h2>
           <h3>消費期限：{{ item.deadline }}まで</h3>
           <h3>個数:{{ item.quantity }}個</h3>
@@ -18,37 +18,45 @@
           </button>
 
           <button class="myclass">ほしい！！</button>
+
+　　　　　　<h3 class="comment-count">コメント({{ comments.count }})</h2>
+
+          <div id="comment-container">
+            {% for comment in comments %}
+              <p class="comment-user">{{ comment.user.username }}</p>
+              <p class="comment-text">{{ comment.text }}</p>
+            {% endfor %}
+          </div>
+
+          <form id="comment-form">
+            {% csrf_token %}
+            <input type="text" class="form-control" id="text" name="text" required>
+            <button type="submit" class="btn btn-outline-secondary comment-btn">送信</button>
+          </form>
       </div>
   </div>
-</div>
+
+  <div class="similar-products">
+    <h3>類似商品</h3>
+    <div class="row">
+      {% for item in items %}
+        {% if item.id != self_id %}
+        <div class="col-md-3">
+          <div class="product-item">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+            <h3>{{ item.name }}</h3>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  function likeButtonClicked() {
-  var itemId = "{{ item.id }}";
-
-  $.ajax({
-    type: "POST",
-    url: "/like_item/" + itemId + "/",
-    data: {
-      item_id: itemId,
-      csrfmiddlewaretoken: "{{ csrf_token }}",
-    },
-    success: function(response) {
-        if (response.is_liked) {
-          $("#heart-icon").removeClass("far").addClass("fas");
-          $(".like-count").text(response.like_count);
-        } else {
-          $("#heart-icon").removeClass("fas").addClass("far");
-          $(".like-count").text(response.like_count);
-        }
-      },
-      error: function(xhr, status, error) {
-        console.log(error);
-      }
-  });
-}
+  var itemId = '{{ item.id }}';
+  var csrfToken = '{{ csrf_token }}';
 </script>
 
 {% endblock %}

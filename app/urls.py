@@ -14,6 +14,8 @@ urlpatterns = [
     path('register/', views.register_view, name='register_view'),
     path('food_information/<int:item_id>', views.food_information, name='food_information'),
     path('like_item/<int:item_id>/', views.like_item, name='like_item'),
+    path('comment_item/<int:item_id>/', views.comment_item, name='comment_item'),
+
 ]
 
 

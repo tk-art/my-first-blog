@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Item
+from .models import CustomUser, Item, Comment
 
 
 class SignupForm(forms.ModelForm):
@@ -17,3 +17,9 @@ class ItemForm(forms.ModelForm):
         widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date'}),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']

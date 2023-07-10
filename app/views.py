@@ -1,15 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, ItemForm
-
+from .forms import SignupForm, ItemForm,CommentForm
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
-from .models import Item
-from .models import Like
+from .models import Item, Like, Comment
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+
 
 def top(request):
   return render(request, 'top.html')
@@ -77,9 +76,16 @@ def register_view(request):
 
 
 def food_information(request, item_id):
+  self_id = item_id
   item = get_object_or_404(Item, pk=item_id)
-
-  return render(request,'food_information.html', { 'item': item, })
+  items = Item.objects.exclude(id=self_id)[:4]
+  comments = Comment.objects.filter(item_id=item_id)
+  context = {
+    'item' : item,
+    'comments' : comments,
+    'items' : items,
+  }
+  return render(request,'food_information.html', context)
 
 
 
@@ -102,3 +108,25 @@ def like_item(request, item_id):
       'like_count': item.like_count
     }
     return JsonResponse(response_data)
+
+@login_required
+def comment_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    user = request.user
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            comment = Comment.objects.create(user=user, item=item, text=text)
+            comment_data = {
+                'text': comment.text,
+                'user': comment.user.username,
+            }
+            return JsonResponse({'success': True, 'comment': comment_data})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = CommentForm()
+
+    return render(request, 'food_information.html', {'form': form})
