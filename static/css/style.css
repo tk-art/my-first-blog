@@ -179,3 +179,8 @@ table.reg_form{
   display: inline-block;
   text-align: left;
 }
+
+/* ページネーション */
+.pagination {
+  justify-content: center;
+}

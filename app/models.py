@@ -34,6 +34,3 @@ class Notification(models.Model):
     content = models.TextField()
     read = models.BooleanField(default=False)
     timestamp = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return  f"Notification: {self.user} liked/commented on {self.item}"

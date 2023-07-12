@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomUser, Item, Like, Comment, Notification
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-
+from django.core.paginator import Paginator
 
 def top(request):
     items = Item.objects.all()
@@ -150,11 +150,14 @@ def comment_item(request, item_id):
 
 def notification(request):
     user = request.user
-    notifications = Notification.objects.filter(user=user)
-
+    notifications = Notification.objects.filter(user=user).order_by('-timestamp')
     Notification.objects.filter(user=user, read=False).update(read=True)
 
-    return render(request, 'notification.html', {'notifications': notifications})
+    paginator = Paginator(notifications, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'notification.html', {'page_obj':page_obj})
 
 def check_new_notifications(request):
     user = request.user
