@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('food_information/<int:item_id>', views.food_information, name='food_information'),
     path('like_item/<int:item_id>/', views.like_item, name='like_item'),
+    path('get_like_status/<int:item_id>/', views.get_like_status, name='get_like_status'),
     path('comment_item/<int:item_id>/', views.comment_item, name='comment_item'),
 
 ]

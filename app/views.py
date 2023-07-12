@@ -90,9 +90,18 @@ def food_information(request, item_id):
 
 
 @login_required
+def get_like_status(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    is_liked = Like.objects.filter(user=request.user, item=item).exists()
+    response_data = {
+        'is_liked': is_liked,
+        }
+    return JsonResponse(response_data)
+
+
 def like_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
-    like, created = Like.objects.get_or_create(user=request.user, item=item)
+    like, created = Like.objects.get_or_create(user=request.user, item=item, is_liked=True)
 
     if created:
         item.like_count += 1
@@ -109,7 +118,7 @@ def like_item(request, item_id):
 
     response_data = {
       'is_liked': is_liked,
-      'like_count': item.like_count,
+      'like_count': item.like_count
     }
     return JsonResponse(response_data)
 

@@ -19,6 +19,7 @@ class Item(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    is_liked = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):

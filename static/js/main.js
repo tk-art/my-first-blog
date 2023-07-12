@@ -1,13 +1,23 @@
 
 $(document).ready(function() {
   var heartIcon = $("#heart-icon");
-  var likeCount = $(".like-count");
-  var likeStatus = localStorage.getItem("likeStatus");
 
-  if (likeStatus === "liked") {
-    heartIcon.removeClass("far").addClass("fas");
-  }
+  $.ajax({
+    type: "GET",
+    url: "/get_like_status/" + itemId + "/",
+    success: function(response) {
+      console.log(response);
+      if (response.is_liked) {
+        heartIcon.removeClass("far").addClass("fas");
+      }
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+
 });
+
 function likeButtonClicked() {
   var heartIcon = $("#heart-icon");
   var likeCount = $(".like-count");
@@ -34,7 +44,7 @@ function likeButtonClicked() {
         console.log(error);
       }
   });
-  }
+}
 
 
 $(document).ready(function() {
