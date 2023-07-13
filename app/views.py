@@ -57,7 +57,12 @@ def logout_view(request):
 
 @login_required
 def profile(request):
-  return render(request,'profile.html', { 'user': request.user })
+    items = request.user.items.all()
+    context = {
+        'user': request.user,
+        'items': items
+    }
+    return render(request,'profile.html', context)
 
 @login_required
 def register_view(request):
