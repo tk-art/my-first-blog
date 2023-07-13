@@ -184,3 +184,9 @@ table.reg_form{
 .pagination {
   justify-content: center;
 }
+.page-item {
+  margin: 0 5px;
+}
+.page-link {
+  border-radius: 100px !important;
+}

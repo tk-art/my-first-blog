@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}notification{% endblock %}
 {% block content %}
+
 <div class="container">
   <div class="row">
     <div class="col-md-12 text-center">
@@ -14,20 +15,23 @@
       </div>
       {% endfor %}
 
-      <div class="pagination">
-        <span class="step-link">
-        {% for num in page_obj.paginator.page_range %}
-          {% if page_obj.number == num %}
-            <span class="current-page">{{ num }}</span>
-          {% else %}
-            <a href="?page={{ num }}">{{ num }}</a>
-          {% endif %}
-        {% endfor %}
-        </span>
-      </div>
-
-
+      <nav class="paginate" aria-label="Page navigation">
+        <ul class="pagination">
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <li class="page-item active" aria-current="page">
+                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
     </div>
   </div>
 </div>
+
 {% endblock %}
