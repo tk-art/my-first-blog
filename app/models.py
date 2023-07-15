@@ -34,3 +34,8 @@ class Notification(models.Model):
     content = models.TextField()
     read = models.BooleanField(default=False)
     timestamp = models.DateField(auto_now_add=True)
+
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='item_images/')
+    content = models.TextField()

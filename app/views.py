@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, ItemForm,CommentForm
+from .forms import SignupForm, ItemForm, CommentForm, ProfileForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
@@ -63,6 +63,16 @@ def profile(request):
         'items': items
     }
     return render(request,'profile.html', context)
+
+def profile_edit(request):
+    if request.method == 'POST':
+      form = ProfileForm(request.POST, request.FILES)
+      if form.is_valid():
+        form.save()
+        return redirect('profile')
+    else:
+        form = ProfileForm()
+    return render(request,'profile_edit.html')
 
 @login_required
 def register_view(request):

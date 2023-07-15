@@ -3,18 +3,22 @@
 
 {% block content %}
 <div class="container">
+  <div class="profile-detail">
+    <p>{{ user.username }}</p>
+    <a href="/profile_edit">プロフィール編集</a>
+  </div>
+  <div class="separator"></div>
   <div class="row">
-      <p>{{ user.username }}</p>
-      {% for item in items %}
-      <div class="col-md-3">
-        <div class="product-item">
-          <a href="/food_information/{{ item.id }}" class="similar-link">
-            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
-          </a>
-        </div>
-        <h4 class="similar-item">{{ item.name }}</h4>
+    {% for item in items %}
+    <div class="col-md-3">
+      <div class="product-item">
+        <a href="/food_information/{{ item.id }}" class="similar-link">
+          <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
+        </a>
       </div>
-      {% endfor %}
+      <h4 class="similar-item">{{ item.name }}</h4>
+    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
