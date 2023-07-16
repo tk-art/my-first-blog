@@ -154,6 +154,8 @@ table.reg_form{
 
 .similar-item {
   color: #6e6d6d;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .similar-link {
   text-decoration: none;
@@ -197,4 +199,74 @@ table.reg_form{
   width: 100%;
   border-bottom: 1px solid #BDBDB7;
   margin: 50px 0;
+}
+
+/*　プロフィール画像サイズ　*/
+.profile-image-size {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* プロフィール位置調整 */
+.profile-container {
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.profile-detail {
+  display: flex;
+}
+.profile-detail h3 {
+  margin-top: 10px;
+}
+.profile-container p {
+  margin-top: 20px;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.profile-edit {
+  font-size: 14px;
+  border: 2px solid #000;
+  color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  background: #fff;
+}
+.profile-edit:hover {
+  color: #fff;
+  background: rgb(66, 81, 150);
+  border: 2px solid rgb(66, 81, 150);
+}
+
+/* 食品情報出品者部分 */
+
+.seller p {
+  color: #939393;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: -20px;
+}
+
+.profile-seller {
+  display: flex;
+  align-items: center;
+  margin-top: -15px;
+}
+.profile-seller img {
+  width: 60px;
+  height: 60px;
+}
+
+.profile-link {
+  display: block;
 }

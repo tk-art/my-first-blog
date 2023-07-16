@@ -36,6 +36,7 @@ class Notification(models.Model):
     timestamp = models.DateField(auto_now_add=True)
 
 class Profile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models. CASCADE)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='item_images/')
     content = models.TextField()

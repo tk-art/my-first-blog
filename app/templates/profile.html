@@ -3,11 +3,21 @@
 
 {% block content %}
 <div class="container">
-  <div class="profile-detail">
-    <p>{{ user.username }}</p>
-    <a href="/profile_edit">プロフィール編集</a>
+  <div class="profile-container">
+    <div class="profile-detail">
+      <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
+      <div class="profile-info">
+        <h3>{{ profile.name }}</h3>
+
+          <a href="/profile_edit" class="profile-edit">プロフィール編集</a>
+
+      </div>
+    </div>
+    <p>{{ profile.content }}</p>
   </div>
+
   <div class="separator"></div>
+
   <div class="row">
     {% for item in items %}
     <div class="col-md-3">

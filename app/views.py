@@ -4,14 +4,19 @@ from .forms import SignupForm, ItemForm, CommentForm, ProfileForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
-from .models import CustomUser, Item, Like, Comment, Notification
+from .models import CustomUser, Item, Like, Comment, Notification, Profile
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 
 def top(request):
     items = Item.objects.all()
-    return render(request, 'top.html', {'items': items})
+    user =request.user
+    context = {
+        'items': items,
+        'user': user
+    }
+    return render(request, 'top.html', context)
 
 def signup(request):
     if request.method == 'POST':
@@ -54,25 +59,41 @@ def logout_view(request):
     return redirect('top')
 
 
+def profile(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    items = user.items.all()
+    profile = get_object_or_404(Profile, user=user)
 
-@login_required
-def profile(request):
-    items = request.user.items.all()
     context = {
-        'user': request.user,
+        'user' : user,
+        'profile': profile,
         'items': items
     }
     return render(request,'profile.html', context)
 
+@login_required
 def profile_edit(request):
     if request.method == 'POST':
       form = ProfileForm(request.POST, request.FILES)
+      user = request.user
+      user_id = user.id
       if form.is_valid():
-        form.save()
-        return redirect('profile')
+        profile_data = form.cleaned_data
+        profile = Profile.objects.filter(user=user).first()
+        if profile:
+            profile.name = profile_data['name']
+            profile.image = profile_data['image']
+            profile.content = profile_data['content']
+            profile.save()
+        else:
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+        return redirect('profile', user_id=user_id)
     else:
         form = ProfileForm()
-    return render(request,'profile_edit.html')
+    return render(request,'profile_edit.html', {'form' : form})
+
 
 @login_required
 def register_view(request):
@@ -93,12 +114,15 @@ def register_view(request):
 def food_information(request, item_id):
   self_id = item_id
   item = get_object_or_404(Item, pk=item_id)
+  user = item.user
+  profile = get_object_or_404(Profile, user=user)
   items = Item.objects.exclude(id=self_id)[:4]
   comments = Comment.objects.filter(item_id=item_id)
   context = {
     'item' : item,
     'comments' : comments,
     'items' : items,
+    'profile' : profile
   }
   return render(request,'food_information.html', context)
 

@@ -21,6 +21,19 @@
 
           <button class="myclass">ほしい！！</button>
 
+          <div class="seller">
+　　　　　　  <p>出品者</p>
+            <div class="separator"></div>
+            <div class="profile-seller">
+              <div class="profile-link">
+                <a href="/profile/{{ profile.user_id }}">
+                  <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
+                  <h3>{{ profile.name }}</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+
 　　　　　　<h3 class="comment-count">コメント({{ comments.count }})</h2>
 
           <div id="comment-container">
