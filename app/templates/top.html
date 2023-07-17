@@ -4,19 +4,17 @@
 
 {% block content %}
 <div class="container">
-  <div class="similar-products">
-    <div class="row">
-      {% for item in items %}
-        <div class="col-md-3">
-          <div class="product-item">
-            <a href="/food_information/{{ item.id }}" class="similar-link">
-              <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
-              <h4 class="similar-item">{{ item.name }}</h4>
-            </a>
-          </div>
+  <div class="row">
+    {% for item in items %}
+      <div class="col-md-3">
+        <div class="product-item">
+          <a href="/food_information/{{ item.id }}" class="similar-link">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
+          </a>
         </div>
-      {% endfor %}
-    </div>
+        <h4 class="similar-item">{{ item.name }}</h4>
+      </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
