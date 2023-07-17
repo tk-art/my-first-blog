@@ -28,8 +28,10 @@ def signup(request):
             password = make_password(form.cleaned_data.get('password'))
 
             user = CustomUser.objects.create(username=username, email=email, password=password)
+            Profile.objects.create(user=user, name=username, image='item_images/default_image.jpeg',
+                                   content='これはデフォルトのプロフィールです。好みに応じて編集してください')
             login(request, user)
-            return redirect('profile')
+            return redirect('profile', user_id=user.id)
 
     else:
       form = SignupForm()

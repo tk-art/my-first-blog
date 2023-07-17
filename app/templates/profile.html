@@ -8,9 +8,11 @@
       <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
       <div class="profile-info">
         <h3>{{ profile.name }}</h3>
-
-          <a href="/profile_edit" class="profile-edit">プロフィール編集</a>
-
+        {% if user.is_authenticated %}
+          {% if user.id == request.user.id %}
+            <a href="/profile_edit" class="profile-edit">プロフィール編集</a>
+          {% endif %}
+        {% endif %}
       </div>
     </div>
     <p>{{ profile.content }}</p>

@@ -24,13 +24,11 @@
           <div class="seller">
 　　　　　　  <p>出品者</p>
             <div class="separator"></div>
-            <div class="profile-seller">
-              <div class="profile-link">
-                <a href="/profile/{{ profile.user_id }}">
-                  <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
-                  <h3>{{ profile.name }}</h3>
-                </a>
-              </div>
+            <div class="profile-link">
+              <a href="/profile/{{ profile.user_id }}">
+                <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
+                <h3>{{ profile.name }}</h3>
+              </a>
             </div>
           </div>
 
