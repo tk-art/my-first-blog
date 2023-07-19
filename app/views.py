@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, ItemForm, CommentForm, ProfileForm
+from .forms import SignupForm, ItemForm, CommentForm, ProfileForm, SearchForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
@@ -8,6 +8,16 @@ from .models import CustomUser, Item, Like, Comment, Notification, Profile
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+
+
+category_mappings = {
+    '肉':'meat',
+    '魚':'fish',
+    '野菜':'vegetable',
+    '果物':'fruit',
+    'お菓子':'snack',
+    '飲み物':'drink'
+}
 
 def top(request):
     items = Item.objects.all()
@@ -206,3 +216,17 @@ def check_new_notifications(request):
 
     response_data = {'hasNewNotification': has_new_notifications}
     return JsonResponse(response_data)
+
+def search(request):
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        search_category = category_mappings.get(query,query)
+        results = Item.objects.filter(category__icontains=search_category)
+    else:
+        results = None
+    return  render(request, 'search.html', {'form': form, 'results': results})
+
+
+def search_category(request):
+    return render(request, 'search_category.html')

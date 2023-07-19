@@ -270,3 +270,28 @@ table.reg_form{
   color: black;
   font-size: 24px;
 }
+
+/*　カテゴリー検索 */
+.search-category h3 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.category-list p {
+  text-align: center;
+  letter-spacing: 2px;
+  margin-top: 10px;
+}
+
+.separatorr {
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+.separatorr:first-child {
+  border-top: 1px solid black;
+}
+
+.separatorr:hover {
+  background-color: rgb(66, 81, 150);
+  color: #fff;
+  cursor: pointer;
+}

@@ -28,3 +28,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'image', 'content']
+
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100)

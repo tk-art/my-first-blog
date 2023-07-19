@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}検索{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <form method="get" action="{% url 'search' %}">
+      {{ form.as_p }}
+      <button type="submit">検索</button>
+    </form>
+    {% if results %}
+      {% for result in results %}
+      <div class="col-md-3">
+        <div class="product-item">
+          <a href="/food_information/{{ result.id }}" class="similar-link">
+            <img src="{{ result.image.url }}" alt="{{ result.name }}" class="uniform-image-size">
+          </a>
+        </div>
+        <h4 class="similar-item">{{ result.name }}</h4>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
