@@ -4,10 +4,6 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <form method="get" action="{% url 'search' %}">
-      {{ form.as_p }}
-      <button type="submit">検索</button>
-    </form>
     {% if results %}
       {% for result in results %}
       <div class="col-md-3">

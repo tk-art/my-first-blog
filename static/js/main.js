@@ -106,3 +106,17 @@ $(document).ready(function() {
     $('#notification-icon').html('⭕️');
   }
 });
+
+
+$(document).ready(function() {
+  $('#searchLink').click(function(event) {
+
+    const searchText = $('#searchText').text();
+
+    $.ajax({
+      type: 'GET',
+      url: '/search/',
+      data: { query: searchText },
+    });
+  });
+});

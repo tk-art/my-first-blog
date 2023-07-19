@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 
 
+
 category_mappings = {
     '肉':'meat',
     '魚':'fish',
@@ -218,14 +219,16 @@ def check_new_notifications(request):
     return JsonResponse(response_data)
 
 def search(request):
-    form = SearchForm(request.GET)
-    if form.is_valid():
-        query = form.cleaned_data['query']
+    if request.method == 'GET':
+        query = request.GET.get('query', '')
+        print(query)
         search_category = category_mappings.get(query,query)
+        print(search_category)
         results = Item.objects.filter(category__icontains=search_category)
+        print(results)
     else:
         results = None
-    return  render(request, 'search.html', {'form': form, 'results': results})
+    return  render(request, 'search.html', {'results': results})
 
 
 def search_category(request):
