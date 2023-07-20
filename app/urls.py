@@ -22,8 +22,8 @@ urlpatterns = [
     path('get_like_status/<int:item_id>/', views.get_like_status, name='get_like_status'),
     path('comment_item/<int:item_id>/', views.comment_item, name='comment_item'),
 
-    path('search/', views.search, name='search'),
     path('search_category/', views.search_category, name='search_category'),
+    path('search/', views.search, name='search'),
 
 
 ]

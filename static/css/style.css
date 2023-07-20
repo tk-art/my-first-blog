@@ -281,16 +281,23 @@ table.reg_form{
   letter-spacing: 2px;
   margin-top: 10px;
 }
+.category-list a {
+  text-decoration: none;
+  color: black;
+}
 
+.separatorr1 {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
 .separatorr {
   border-bottom: 1px solid black;
   padding: 10px;
 }
-.separatorr:first-child {
-  border-top: 1px solid black;
-}
 
-.separatorr:hover {
+
+.category-back:hover {
   background-color: rgb(66, 81, 150);
   color: #fff;
   cursor: pointer;

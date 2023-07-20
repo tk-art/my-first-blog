@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, ItemForm, CommentForm, ProfileForm, SearchForm
+from .forms import SignupForm, ItemForm, CommentForm, ProfileForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
@@ -8,7 +8,7 @@ from .models import CustomUser, Item, Like, Comment, Notification, Profile
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-
+from html import escape
 
 
 category_mappings = {
@@ -221,15 +221,13 @@ def check_new_notifications(request):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('query', '')
-        print(query)
-        search_category = category_mappings.get(query,query)
-        print(search_category)
-        results = Item.objects.filter(category__icontains=search_category)
-        print(results)
+        search_category = category_mappings.get(query, query)
+        results = Item.objects.filter(category=search_category)
     else:
         results = None
     return  render(request, 'search.html', {'results': results})
 
 
 def search_category(request):
+
     return render(request, 'search_category.html')
