@@ -14,6 +14,7 @@ class Item(models.Model):
     deadline = models.DateField()
     quantity = models.PositiveIntegerField()
     image = models.ImageField(upload_to='item_images/')
+    place = models.CharField(max_length=100)
     like_count = models.PositiveIntegerField(default=0)
 
 class Like(models.Model):
