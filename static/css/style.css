@@ -302,3 +302,19 @@ table.reg_form{
   color: #fff;
   cursor: pointer;
 }
+
+/* footer */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  margin-top: 80px;
+  margin-bottom: -25px;
+  color: #fff;
+  background-color:rgb(66, 81, 150);
+}
+
+footer p {
+  margin: 0 auto;
+}
