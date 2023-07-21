@@ -8,6 +8,7 @@
       <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
       <div class="profile-info">
         <h3>{{ profile.name }}</h3>
+        <p>居住区：{{ profile.region }}</p>
         {% if user.is_authenticated %}
           {% if user.id == request.user.id %}
             <a href="/profile_edit" class="profile-edit">プロフィール編集</a>

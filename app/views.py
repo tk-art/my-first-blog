@@ -230,4 +230,6 @@ def search(request):
 
 def search_category(request):
     return render(request, 'search_category.html')
-    #class="footer-m bg-light text-center py-3"
+
+def want(request):
+    return render(request, 'want.html')
