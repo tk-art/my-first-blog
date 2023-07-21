@@ -229,5 +229,4 @@ def search(request):
 
 
 def search_category(request):
-
     return render(request, 'search_category.html')
