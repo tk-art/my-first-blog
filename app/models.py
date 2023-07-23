@@ -42,3 +42,9 @@ class Profile(models.Model):
     region = models.CharField(max_length=100)
     image = models.ImageField(upload_to='item_images/')
     content = models.TextField()
+
+class Message(models.Model):
+    sender = models.CharField(max_length=100)
+    recipient = models.CharField(max_length=100)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

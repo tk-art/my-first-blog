@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .chat.consumers import ChatConsumer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
+]
+
+websocket_urlpatterns = [
+    path('ws/chat/<str:room_name>/', ChatConsumer.as_asgi()),
 ]

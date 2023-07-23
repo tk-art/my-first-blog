@@ -9,4 +9,5 @@ ENV PATH="/venv/bin:$PATH"
 RUN /venv/bin/pip install --upgrade pip
 RUN /venv/bin/pip install -r requirements.txt
 RUN pip install pillow
+RUN pip install channels
 COPY . /code/

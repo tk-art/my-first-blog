@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}food_information{{ item.id }}{% endblock %}
+{% block title %}want{{ item.id }}{% endblock %}
 {% block content %}
-dd
+  <div class="container">
+    <div class="row">
+      <div id="chat-box"></div>
+      <input type="text" id="message-input" placeholder="メッセージを入力">
+      <button id="send-button">送信</button>
+    </div>
+  </div>
 
+  <script>
+    var room_name = "{{ room_name }}";
+  </script>
 {% endblock %}

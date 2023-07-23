@@ -8,7 +8,6 @@ from .models import CustomUser, Item, Like, Comment, Notification, Profile
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from html import escape
 
 
 category_mappings = {
@@ -232,4 +231,7 @@ def search_category(request):
     return render(request, 'search_category.html')
 
 def want(request):
-    return render(request, 'want.html')
+    context = {
+        'room_name': 'room1'
+    }
+    return render(request, 'want.html', {'context': context})

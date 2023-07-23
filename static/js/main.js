@@ -106,3 +106,25 @@ $(document).ready(function() {
     $('#notification-icon').html('⭕️');
   }
 });
+
+
+$(document).ready(function() {
+  const chatSocket = new WebSocket(
+      'ws://' + window.location.host +
+      '/ws/chat/' + room_name + '/');
+  console.log(room_name);
+
+  chatSocket.onmessage = function(e) {
+      const data = JSON.parse(e.data);
+      const chatBox = $('#chat-box');
+      const messageElement = $('<div></div>').text(data.message);
+      chatBox.append(messageElement);
+  };
+
+  $('#send-button').on('click', function() {
+      const messageInput = $('#message-input');
+      const message = messageInput.val();
+      chatSocket.send(JSON.stringify({ 'message': message }));
+      messageInput.val('');
+  });
+});
