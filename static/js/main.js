@@ -109,10 +109,9 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-  const chatSocket = new WebSocket(
-      'ws://' + window.location.host +
-      '/ws/chat/' + room_name + '/');
-  console.log(room_name);
+  const socket = new WebSocket(
+      'ws://' + window.location.host +　'/ws/chat/'
+      );
 
   chatSocket.onmessage = function(e) {
       const data = JSON.parse(e.data);
@@ -124,7 +123,7 @@ $(document).ready(function() {
   $('#send-button').on('click', function() {
       const messageInput = $('#message-input');
       const message = messageInput.val();
-      chatSocket.send(JSON.stringify({ 'message': message }));
+      socket.send(JSON.stringify({ 'message': message }));
       messageInput.val('');
   });
 });

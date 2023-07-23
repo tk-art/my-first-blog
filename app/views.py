@@ -231,7 +231,4 @@ def search_category(request):
     return render(request, 'search_category.html')
 
 def want(request):
-    context = {
-        'room_name': 'room1'
-    }
-    return render(request, 'want.html', {'context': context})
+    return render(request, 'want.html')

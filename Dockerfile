@@ -10,4 +10,5 @@ RUN /venv/bin/pip install --upgrade pip
 RUN /venv/bin/pip install -r requirements.txt
 RUN pip install pillow
 RUN pip install channels
+RUN pip install daphne
 COPY . /code/

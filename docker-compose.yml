@@ -24,5 +24,13 @@ services:
     depends_on:
       - db
 
+  asgi:
+    build: .
+    command: daphne myproject.asgi:application
+    ports:
+      - "8001:8001"
+    depends_on:
+      - web
+
 volumes:
   db_data:
