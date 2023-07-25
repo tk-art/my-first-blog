@@ -109,11 +109,11 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-  const socket = new WebSocket(
-      'ws://' + window.location.host +　'/ws/chat/'
-      );
+  const socket = new WebSocket('ws://localhost:8001/ws/chat/');
+  console.log(socket);
 
-  chatSocket.onmessage = function(e) {
+
+  socket.onmessage = function(e) {
       const data = JSON.parse(e.data);
       const chatBox = $('#chat-box');
       const messageElement = $('<div></div>').text(data.message);
