@@ -106,22 +106,3 @@ $(document).ready(function() {
     $('#notification-icon').html('⭕️');
   }
 });
-
-$(document).ready(function() {
-  const socket = new WebSocket('wss://localhost:8001/chat/');
-  console.log(socket);
-
-  socket.onmessage = function(e) {
-      const data = JSON.parse(e.data);
-      const chatBox = $('#chat-box');
-      const messageElement = $('<div></div>').text(data.message);
-      chatBox.append(messageElement);
-  };
-
-  $('#send-button').on('click', function() {
-      const messageInput = $('#message-input');
-      const message = messageInput.val();
-      socket.send(JSON.stringify({ 'message': message }));
-      messageInput.val('');
-  });
-});

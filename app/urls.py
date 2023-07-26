@@ -20,7 +20,8 @@ urlpatterns = [
     path('comment_item/<int:item_id>/', views.comment_item, name='comment_item'),
     path('search_category/', views.search_category, name='search_category'),
     path('search/', views.search, name='search'),
-    path('want/', views.want, name='want'),
+    path('want/<int:item_id>', views.want, name='want'),
+
 ]
 
 

@@ -3,9 +3,19 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div id="chat-box"></div>
-      <input type="text" id="message-input" placeholder="メッセージを入力">
-      <button id="send-button">送信</button>
+
+      <div class="message-field">
+        <div class="profile-detail">
+          <img src="{{ user.image.url }}" alt="{{ user.name }}" class="message-image-size">
+          <div class="profile-info">
+            <h3>{{ user.name }}</h3>
+          </div>
+        </div>
+        <form id="message-form">
+          <textarea id="message"></textarea>
+        </form>
+      </div>
+
     </div>
   </div>
 

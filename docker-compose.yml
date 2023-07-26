@@ -25,13 +25,5 @@ services:
     depends_on:
       - db
 
-  asgi:
-    build: .
-    command: daphne -b 0.0.0.0 -p 8001 --ssl-key /server.key --ssl-cert /server.crt myproject.asgi:application
-    ports:
-      - "8001:8001"
-    depends_on:
-      - web
-
 volumes:
   db_data:
