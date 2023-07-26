@@ -107,11 +107,9 @@ $(document).ready(function() {
   }
 });
 
-
 $(document).ready(function() {
-  const socket = new WebSocket('ws://localhost:8001/ws/chat/');
+  const socket = new WebSocket('wss://localhost:8001/chat/');
   console.log(socket);
-
 
   socket.onmessage = function(e) {
       const data = JSON.parse(e.data);
