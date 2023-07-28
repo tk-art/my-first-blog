@@ -21,6 +21,7 @@ urlpatterns = [
     path('search_category/', views.search_category, name='search_category'),
     path('search/', views.search, name='search'),
     path('want/<int:item_id>', views.want, name='want'),
+    path('message/<int:item_id>', views.message, name='message'),
 
 ]
 

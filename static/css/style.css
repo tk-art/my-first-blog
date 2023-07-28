@@ -329,12 +329,52 @@ footer p {
 .message-field {
   border: 1px solid #b2b2b2;
   padding: 100px;
+  border-radius: 10px;
+}
+.message-field img {
+  margin-bottom: 30px;
+}
+
+.message-h3 {
+  letter-spacing: 2px;
 }
 
 .message-image-size {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 20px;
+}
+
+.message-link {
+  display: flex;
+  text-decoration: none;
+}
+
+.kugiri {
+  width: 100%;
+  border-bottom: 1px solid #BDBDB7;
+  margin-bottom: 30px;
+}
+
+#message {
+  width: 100%;
+  height: 200px;
+}
+
+.message-btn {
+  color: #fff;
+  background-color: rgb(66, 81, 150);
+  letter-spacing: 1.5px;
+  padding: 10px 20px;
+  margin-top: 30px;
+  border-radius: 5px;
+  border: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.message-btn:hover {
+  background-color: rgb(106, 127, 223);
 }

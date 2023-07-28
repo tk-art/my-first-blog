@@ -230,12 +230,15 @@ def search(request):
 def search_category(request):
     return render(request, 'search_category.html')
 
-
 def want(request, item_id):
-    item = item = get_object_or_404(Item, pk=item_id)
+    item =  get_object_or_404(Item, pk=item_id)
     user = item.user.profile
+    print(user.id)
     context = {
         'item' : item,
         'user' : user
     }
     return render(request, 'want.html', context)
+
+def message(request, item_id):
+    return render(request, 'want.html')

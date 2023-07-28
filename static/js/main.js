@@ -78,14 +78,12 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-  // 通知の新規有無を確認する関数を定義します
   function checkNewNotifications() {
     $.ajax({
       url: '/api/notifications/check',
       method: 'GET',
       success: function(response) {
         console.log(response);
-        // バックエンドからのレスポンスを確認し、通知があればshowNewNotification()関数を呼び出す
         if (response.hasNewNotification) {
           showNewNotification();
         }
@@ -105,4 +103,25 @@ $(document).ready(function() {
   function showNewNotification() {
     $('#notification-icon').html('⭕️');
   }
+});
+
+$(document).ready(function() {
+  $("#message-form").submit(function(event) {
+      event.preventDefault();
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+          type: "POST",
+          url: "/path/to/your/endpoint",
+          data: formData,
+          dataType: "json",
+          success: function(response) {
+              console.log(response);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
+          }
+      });
+  });
 });
