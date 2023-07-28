@@ -10,10 +10,19 @@
       </a>
     </div>
     <div class="kugiri"></div>
+
+    {{ message }}
+
     <form id="message-form">
-      <textarea id="message"></textarea>
+      {% csrf_token %}
+      <textarea id="content" name="content"></textarea>
       <button type="submit" class="message-btn">メッセージを送信する</button>
     </form>
   </div>
 </div>
+
+<script>
+  var itemid = '{{ item.id }}';
+</script>
+
 {% endblock %}

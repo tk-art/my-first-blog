@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Item, Comment, Profile
+from .models import CustomUser, Item, Comment, Profile, Messa
 
 
 class SignupForm(forms.ModelForm):
@@ -29,7 +29,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['name', 'image', 'content']
 
-class MessageForm(forms.ModelForm):
+class MessaForm(forms.ModelForm):
     class Meta:
-        model = Message
-        fields = ['message']
+        model = Messa
+        fields = ['content']

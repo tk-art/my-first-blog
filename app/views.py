@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignupForm, ItemForm, CommentForm, ProfileForm
+from .forms import SignupForm, ItemForm, CommentForm, ProfileForm, MessaForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 #from django.views.decorators.http import require_POST
@@ -233,7 +233,6 @@ def search_category(request):
 def want(request, item_id):
     item =  get_object_or_404(Item, pk=item_id)
     user = item.user.profile
-    print(user.id)
     context = {
         'item' : item,
         'user' : user
@@ -241,4 +240,21 @@ def want(request, item_id):
     return render(request, 'want.html', context)
 
 def message(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    user = request.user
+
+    if request.method == 'POST':
+        form = MessaForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['content']
+            message = Messa.objects.create(sender=user, receiver=item.user, content=content)
+            message_data = {
+                'message': message.content,
+                'user' : user.username
+            }
+            return JsonResponse({'success': True, 'comment': comment_data})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = CommentForm()
     return render(request, 'want.html')

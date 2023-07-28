@@ -43,8 +43,8 @@ class Profile(models.Model):
     image = models.ImageField(upload_to='item_images/')
     content = models.TextField()
 
-class Message(models.Model):
+class Messa(models.Model):
     sender = models.ForeignKey(CustomUser, related_name='sender', on_delete=models.CASCADE)
     receiver = models.ForeignKey(CustomUser, related_name='receiver', on_delete=models.CASCADE)
-    message = models.TextField()
+    content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
