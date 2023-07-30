@@ -62,7 +62,7 @@ $(document).ready(function() {
                   var commentUser = response.comment.user;
                   var commentText = response.comment.text;
                   var commentUserElement = $('<p>').text(commentUser);
-                  var commentTextElement = $('<p>').text(commentText).addClass('comment-text');
+                  var commentTextElement = $('<p>').text(commentText);
                   $('#comment-container').append(commentUserElement);
                   $('#comment-container').append(commentTextElement);
                   form.find('#text').val('');
@@ -109,16 +109,39 @@ $(document).ready(function() {
   $("#message-form").submit(function(event) {
       event.preventDefault();
 
-      var form = $(this).serialize();
-      console.log(form);
+      var form = $(this);
 
       $.ajax({
           type: "POST",
           url: "/message/" + itemid + "/",
-          data: form,
+          data: form.serialize(),
           dataType: "json",
           success: function(response) {
-              console.log(response);
+            var imageElement = $('<img>').attr({
+              src: response.message.image,
+              alt: response.message.user,
+              class: "messa-image-size"
+            });
+            var messageUser = response.message.user;
+            var messageText = response.message.message;
+            var messageUserElement = $('<p>').text(messageUser);
+            var messageTextElement = $('<p>').text(messageText);
+
+            var messageLinkElement = $('<a>').attr({
+              href: "/profile/" + response.message.sender,
+              class: "message-link"
+            }).append(imageElement);
+
+            var messageInfoElement = $('<div>').addClass("message-info")
+                .append(messageUserElement)
+                .append(messageTextElement);
+
+            var profileDetailElement = $('<div>').addClass("profile-detail")
+                .append(messageLinkElement)
+                .append(messageInfoElement);
+
+            $('#message-container').append(profileDetailElement);
+            form.find('#content').val('');
           },
           error: function(error) {
             console.log(error);

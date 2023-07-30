@@ -2,22 +2,40 @@
 {% block title %}want{{ item.id }}{% endblock %}
 {% block content %}
 <div class="container">
-  <div class="message-field">
-    <div class="profile-detail">
-      <a href="/profile/{{ user.user_id }}" class="message-link">
-        <img src="{{ user.image.url }}" alt="{{ user.name }}" class="message-image-size">
-        <h3 class="message-h3">{{ user.name }}</h3>
-      </a>
+  <div class="messa-container">
+    <div class="message-field">
+      <div class="profile-detail">
+        <a href="/profile/{{ user.user_id }}" class="message-link">
+          <img src="{{ user.image.url }}" alt="{{ user.name }}" class="message-image-size">
+          <h3 class="message-h3">{{ user.name }}</h3>
+        </a>
+      </div>
+      <div class="kugiri"></div>
+
+      <div id="message-container">
+        {% for message in messages %}
+        <div class="profile-detail">
+          <a href="/profile/{{ sender.user_id }}" class="message-link">
+            <img src="{{ sender.image.url }}" alt="{{ sender.name }}" class="messa-image-size">
+          </a>
+          <div class="message-info">
+            <div class="message-header">
+              <p class="sender-name">{{ sender.name }}</p>
+              <p class="message-timestamp">{{ message.timestamp }}</p>
+            </div>
+            <p class="message-content">{{ message.content }}</p>
+          </div>
+        </div>
+        <div class="kugiri"></div>
+        {% endfor %}
+      </div>
+
+      <form id="message-form">
+        {% csrf_token %}
+        <textarea id="content" name="content"></textarea>
+        <button type="submit" class="message-btn">メッセージを送信する</button>
+      </form>
     </div>
-    <div class="kugiri"></div>
-
-    {{ message }}
-
-    <form id="message-form">
-      {% csrf_token %}
-      <textarea id="content" name="content"></textarea>
-      <button type="submit" class="message-btn">メッセージを送信する</button>
-    </form>
   </div>
 </div>
 

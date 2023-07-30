@@ -347,6 +347,14 @@ footer p {
   margin-right: 20px;
 }
 
+.messa-image-size {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
 .message-link {
   display: flex;
   text-decoration: none;
@@ -377,4 +385,26 @@ footer p {
 }
 .message-btn:hover {
   background-color: rgb(106, 127, 223);
+}
+
+.messa-container {
+  width: 60%;
+  height: auto;
+  margin: auto;
+}
+
+.message-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message-timestamp {
+  font-size: 10px;
+  color:rgb(146, 147, 152);
 }

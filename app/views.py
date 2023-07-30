@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import SignupForm, ItemForm, CommentForm, ProfileForm, MessaForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
-#from django.views.decorators.http import require_POST
-from .models import CustomUser, Item, Like, Comment, Notification, Profile
+from .models import CustomUser, Item, Like, Comment, Notification, Profile, Messa
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
@@ -233,9 +232,15 @@ def search_category(request):
 def want(request, item_id):
     item =  get_object_or_404(Item, pk=item_id)
     user = item.user.profile
+    messages = Messa.objects.filter(item=item_id)
+    sender = None
+    for message in messages:
+        sender = message.sender.profile
     context = {
         'item' : item,
-        'user' : user
+        'user' : user,
+        'messages' : messages,
+        'sender' : sender
     }
     return render(request, 'want.html', context)
 
@@ -247,12 +252,15 @@ def message(request, item_id):
         form = MessaForm(request.POST)
         if form.is_valid():
             message = form.cleaned_data['content']
-            message = Messa.objects.create(sender=user, receiver=item.user, content=content)
+            message = Messa.objects.create(sender=user, receiver=item.user, item=item, content=message)
+            sender = None
             message_data = {
                 'message': message.content,
-                'user' : user.username
+                'user' : user.profile.name,
+                'image' : user.profile.image.url,
+                'sender' : message.sender_id
             }
-            return JsonResponse({'success': True, 'comment': comment_data})
+            return JsonResponse({'success': True, 'message': message_data})
         else:
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
