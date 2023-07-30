@@ -124,8 +124,11 @@ $(document).ready(function() {
             });
             var messageUser = response.message.user;
             var messageText = response.message.message;
+            var messageTimestamp = response.message.timestamp;
             var messageUserElement = $('<p>').text(messageUser);
             var messageTextElement = $('<p>').text(messageText);
+            var messageTimestampElement = $('<p>').text(messageTimestamp).addClass('message-timestamp');
+            var divElement = $('<div>').addClass('kugiri');
 
             var messageLinkElement = $('<a>').attr({
               href: "/profile/" + response.message.sender,
@@ -134,6 +137,7 @@ $(document).ready(function() {
 
             var messageInfoElement = $('<div>').addClass("message-info")
                 .append(messageUserElement)
+                .append(messageTimestampElement)
                 .append(messageTextElement);
 
             var profileDetailElement = $('<div>').addClass("profile-detail")
@@ -141,6 +145,7 @@ $(document).ready(function() {
                 .append(messageInfoElement);
 
             $('#message-container').append(profileDetailElement);
+            $('#message-container').append(divElement);
             form.find('#content').val('');
           },
           error: function(error) {

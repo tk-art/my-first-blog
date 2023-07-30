@@ -15,7 +15,7 @@
         <div class="col-md-6">
           <a href="/" class="header-left">food exchange</a>
         </div>
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="col-md-6">
           <div class="d-flex justify-content-end">
             <a href="/profile/{{ request.user.id }}" class="header-right">プロフィール</a>

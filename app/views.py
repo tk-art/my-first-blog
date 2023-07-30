@@ -7,6 +7,7 @@ from .models import CustomUser, Item, Like, Comment, Notification, Profile, Mess
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 category_mappings = {
@@ -20,7 +21,7 @@ category_mappings = {
 
 def top(request):
     items = Item.objects.all()
-    user =request.user
+    user = request.user
     context = {
         'items': items,
         'user': user
@@ -229,18 +230,18 @@ def search(request):
 def search_category(request):
     return render(request, 'search_category.html')
 
-def want(request, item_id):
+def want(request, item_id, user_id):
     item =  get_object_or_404(Item, pk=item_id)
-    user = item.user.profile
-    messages = Messa.objects.filter(item=item_id)
+    user = get_object_or_404(CustomUser, pk=user_id)
+    user1 = item.user.profile
+    #messages = Messa.objects.filter(item=item, sender__in=[item.user, user], receiver__in=[item.user, user])
+    messages = Messa.objects.filter(Q(sender=item.user, receiver=user) | Q(sender=user, receiver=item.user))
     sender = None
-    for message in messages:
-        sender = message.sender.profile
+
     context = {
         'item' : item,
-        'user' : user,
-        'messages' : messages,
-        'sender' : sender
+        'user1' : user1,
+        'messages' : messages
     }
     return render(request, 'want.html', context)
 
@@ -253,12 +254,19 @@ def message(request, item_id):
         if form.is_valid():
             message = form.cleaned_data['content']
             message = Messa.objects.create(sender=user, receiver=item.user, item=item, content=message)
+
+            if item.user != user:
+                notification_content = f"{user.username}さんがあなたの食品「{item.name}」に対してメッセージを送信しました"
+                Notification.objects.create(user=item.user, item=item, content=notification_content)
+
+            formatted_timestamp = message.timestamp.strftime("%B %d, %Y, %I:%M %p")
             sender = None
             message_data = {
                 'message': message.content,
                 'user' : user.profile.name,
                 'image' : user.profile.image.url,
-                'sender' : message.sender_id
+                'sender' : message.sender_id,
+                'timestamp' : formatted_timestamp
             }
             return JsonResponse({'success': True, 'message': message_data})
         else:

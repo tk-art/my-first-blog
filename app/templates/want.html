@@ -5,31 +5,35 @@
   <div class="messa-container">
     <div class="message-field">
       <div class="profile-detail">
-        <a href="/profile/{{ user.user_id }}" class="message-link">
-          <img src="{{ user.image.url }}" alt="{{ user.name }}" class="message-image-size">
-          <h3 class="message-h3">{{ user.name }}</h3>
+        <a href="/profile/{{ user1.user_id }}" class="message-link">
+          <img src="{{ user1.image.url }}" alt="{{ user1.name }}" class="message-image-size">
+          <h3 class="message-h3">{{ user1.name }}</h3>
         </a>
       </div>
       <div class="kugiri"></div>
-
       <div id="message-container">
         {% for message in messages %}
-        <div class="profile-detail">
-          <a href="/profile/{{ sender.user_id }}" class="message-link">
-            <img src="{{ sender.image.url }}" alt="{{ sender.name }}" class="messa-image-size">
-          </a>
-          <div class="message-info">
-            <div class="message-header">
-              <p class="sender-name">{{ sender.name }}</p>
+          <div class="profile-detail">
+            {% if message.sender == item.user %}
+              <a href="/profile/{{ message.receiver.profile.user_id }}" class="message-link">
+                <img src="{{ message.receiver.profile.image.url }}" alt="{{ message.receiver.profile.name }}" class="messa-image-size">
+              </a>
+              <div class="message-info">
+                <p class="sender-name">{{ message.receiver.profile.name }}</p>
+            {% else %}
+              <a href="/profile/{{ message.sender.profile.user_id }}" class="message-link">
+                <img src="{{ message.sender.profile.image.url }}" alt="{{ message.sender.profile.name }}" class="messa-image-size">
+              </a>
+              <div class="message-info">
+                <p class="sender-name">{{ message.sender.profile.name }}</p>
+            {% endif %}
               <p class="message-timestamp">{{ message.timestamp }}</p>
+              <p class="message-content">{{ message.content }}</p>
             </div>
-            <p class="message-content">{{ message.content }}</p>
           </div>
-        </div>
-        <div class="kugiri"></div>
+          <div class="kugiri"></div>
         {% endfor %}
       </div>
-
       <form id="message-form">
         {% csrf_token %}
         <textarea id="content" name="content"></textarea>

@@ -328,7 +328,7 @@ footer p {
 /* メッセージ */
 .message-field {
   border: 1px solid #b2b2b2;
-  padding: 100px;
+  padding: 50px;
   border-radius: 10px;
 }
 .message-field img {
@@ -396,12 +396,6 @@ footer p {
 .message-info {
   display: flex;
   flex-direction: column;
-}
-
-.message-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .message-timestamp {

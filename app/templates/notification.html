@@ -6,13 +6,13 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <h1>通知</h1>
-      {% for notification in page_obj　reversed %}
-      <div class="notification">
-        <p class="content">
-          {{ notification.content }}<br>
-          {{ notification.timestamp }}
-        </p>
-      </div>
+      {% for notification in page_obj %}
+        <div class="notification">
+          <p class="content">
+            {{ notification.content }}<br>
+            {{ notification.timestamp }}
+          </p>
+        </div>
       {% endfor %}
 
       <nav class="paginate" aria-label="Page navigation">
