@@ -29,6 +29,9 @@
             {% endif %}
               <p class="message-timestamp">{{ message.timestamp }}</p>
               <p class="message-content">{{ message.content }}</p>
+              {% if item.user != request.user %}
+                <button class="reply-btn" data-reply-to="{{ message.id }}">Reply</button>
+              {% endif %}
             </div>
           </div>
           <div class="kugiri"></div>
@@ -37,6 +40,7 @@
       <form id="message-form">
         {% csrf_token %}
         <textarea id="content" name="content"></textarea>
+        <input type="hidden" id="reply_to" name="reply_to">
         <button type="submit" class="message-btn">メッセージを送信する</button>
       </form>
     </div>

@@ -32,4 +32,4 @@ class ProfileForm(forms.ModelForm):
 class MessaForm(forms.ModelForm):
     class Meta:
         model = Messa
-        fields = ['content']
+        fields = ['content', 'reply_to']

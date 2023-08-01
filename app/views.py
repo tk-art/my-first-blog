@@ -234,9 +234,7 @@ def want(request, item_id, user_id):
     item =  get_object_or_404(Item, pk=item_id)
     user = get_object_or_404(CustomUser, pk=user_id)
     user1 = item.user.profile
-    #messages = Messa.objects.filter(item=item, sender__in=[item.user, user], receiver__in=[item.user, user])
-    messages = Messa.objects.filter(Q(sender=item.user, receiver=user) | Q(sender=user, receiver=item.user))
-    sender = None
+    messages = Messa.objects.filter(item=item)
 
     context = {
         'item' : item,
@@ -253,6 +251,13 @@ def message(request, item_id):
         form = MessaForm(request.POST)
         if form.is_valid():
             message = form.cleaned_data['content']
+            reply_to_id = form.cleaned_data.get['reply_to']
+
+            if reply_to_id:
+                original_message = Messa.objects.get(id=reply_to_id)
+                receiver = original_message.sender
+            else:
+                receiver = item.user
             message = Messa.objects.create(sender=user, receiver=item.user, item=item, content=message)
 
             if item.user != user:

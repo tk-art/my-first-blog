@@ -154,3 +154,8 @@ $(document).ready(function() {
       });
    });
 });
+
+$('.reply-btn').click(function() {
+  var reply_to_id = $(this).data('reply-to');
+  $('#reply_to').val(reply_to_id);
+});
