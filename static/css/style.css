@@ -143,7 +143,19 @@ table.reg_form{
 .product-item {
   width: 250px;
   height: 250px;
+  position: relative;
 }
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  color: white;
+  display: none;
+}
+
+
 /* 画像サイズ */
 .uniform-image-size {
   width: 90%;
@@ -401,4 +413,34 @@ footer p {
 .message-timestamp {
   font-size: 10px;
   color:rgb(146, 147, 152);
+}
+
+.message-reply {
+  font-size: 12px;
+  border: 1px solid rgb(146, 147, 152);
+  color: black;
+  border-radius: 5px;
+  padding: 6px 12px;
+  background: #fff;
+  margin-bottom: 18px;
+}
+.message-reply:hover {
+  color: #fff;
+  background: rgb(66, 81, 150);
+  border: 1px solid rgb(66, 81, 150);
+}
+
+.confirm-btn {
+  font-size: 12px;
+  border: 1px solid rgb(146, 147, 152);
+  color: black;
+  border-radius: 5px;
+  padding: 6px 12px;
+  background: #fff;
+  margin-bottom: 18px;
+}
+.confirm-btn:hover {
+  color: #fff;
+  background: rgb(205, 66, 89);
+  border: 1px solid rgb(205, 66, 89);
 }

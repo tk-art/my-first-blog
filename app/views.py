@@ -7,7 +7,6 @@ from .models import CustomUser, Item, Like, Comment, Notification, Profile, Mess
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from django.db.models import Q
 
 
 category_mappings = {
@@ -230,9 +229,8 @@ def search(request):
 def search_category(request):
     return render(request, 'search_category.html')
 
-def want(request, item_id, user_id):
+def want(request, item_id):
     item =  get_object_or_404(Item, pk=item_id)
-    user = get_object_or_404(CustomUser, pk=user_id)
     user1 = item.user.profile
     messages = Messa.objects.filter(item=item)
 
@@ -251,14 +249,19 @@ def message(request, item_id):
         form = MessaForm(request.POST)
         if form.is_valid():
             message = form.cleaned_data['content']
-            reply_to_id = form.cleaned_data.get['reply_to']
+            reply_to = form.cleaned_data['reply_to']
 
-            if reply_to_id:
+
+            if reply_to:
+                reply_to_id = reply_to.id
                 original_message = Messa.objects.get(id=reply_to_id)
                 receiver = original_message.sender
+                message = Messa.objects.create(sender=user, receiver=receiver, item=item, content=message, reply_to=original_message)
+                notification_content = f"{item.user}さんがあなたのメッセージ「{original_message.content}」に対して返信しました"
+                Notification.objects.create(user=receiver, item=item, content=notification_content)
+
             else:
-                receiver = item.user
-            message = Messa.objects.create(sender=user, receiver=item.user, item=item, content=message)
+                message = Messa.objects.create(sender=user, receiver=item.user, item=item, content=message)
 
             if item.user != user:
                 notification_content = f"{user.username}さんがあなたの食品「{item.name}」に対してメッセージを送信しました"

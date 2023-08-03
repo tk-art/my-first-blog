@@ -13,7 +13,7 @@ class SignupForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['name', 'category', 'deadline', 'quantity', 'image']
+        fields = ['name', 'category', 'deadline', 'quantity', 'image', 'place']
         widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date'}),
         }

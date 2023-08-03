@@ -14,23 +14,16 @@
       <div id="message-container">
         {% for message in messages %}
           <div class="profile-detail">
-            {% if message.sender == item.user %}
-              <a href="/profile/{{ message.receiver.profile.user_id }}" class="message-link">
-                <img src="{{ message.receiver.profile.image.url }}" alt="{{ message.receiver.profile.name }}" class="messa-image-size">
-              </a>
-              <div class="message-info">
-                <p class="sender-name">{{ message.receiver.profile.name }}</p>
-            {% else %}
-              <a href="/profile/{{ message.sender.profile.user_id }}" class="message-link">
-                <img src="{{ message.sender.profile.image.url }}" alt="{{ message.sender.profile.name }}" class="messa-image-size">
-              </a>
-              <div class="message-info">
-                <p class="sender-name">{{ message.sender.profile.name }}</p>
-            {% endif %}
+            <a href="/profile/{{ message.sender.profile.user_id }}" class="message-link">
+              <img src="{{ message.sender.profile.image.url }}" alt="{{ message.sender.profile.name }}" class="messa-image-size">
+            </a>
+            <div class="message-info">
+              <p class="sender-name">{{ message.sender.profile.name }}</p>
               <p class="message-timestamp">{{ message.timestamp }}</p>
               <p class="message-content">{{ message.content }}</p>
-              {% if item.user != request.user %}
-                <button class="reply-btn" data-reply-to="{{ message.id }}">Reply</button>
+              {% if item.user != message.sender %}
+                <button class="reply-btn message-reply" data-reply-to="{{ message.id }}"
+                             data-reply-to-name="{{ message.sender.profile.name }}">返信する</button>
               {% endif %}
             </div>
           </div>
@@ -43,6 +36,7 @@
         <input type="hidden" id="reply_to" name="reply_to">
         <button type="submit" class="message-btn">メッセージを送信する</button>
       </form>
+      <button class="confirm-btn" id="confirmButton">確定する</button>
     </div>
   </div>
 </div>

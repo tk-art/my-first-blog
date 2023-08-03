@@ -157,5 +157,12 @@ $(document).ready(function() {
 
 $('.reply-btn').click(function() {
   var reply_to_id = $(this).data('reply-to');
+  var reply_to_name = $(this).data('reply-to-name');
   $('#reply_to').val(reply_to_id);
+  $('#content').val(reply_to_name + "に対しての返信 :");
+  $('#content').focus();
+});
+
+$('#confirmButton').click(function() {
+  $('.overlay-text').show();
 });
