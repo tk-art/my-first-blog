@@ -282,3 +282,14 @@ def message(request, item_id):
     else:
         form = CommentForm()
     return render(request, 'want.html')
+
+
+def button_click(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('itemId')
+        item = Item.objects.get(id=item_id)
+        item.status = 1
+        item.save()
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error'})

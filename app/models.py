@@ -16,6 +16,7 @@ class Item(models.Model):
     image = models.ImageField(upload_to='item_images/')
     place = models.CharField(max_length=100)
     like_count = models.PositiveIntegerField(default=0)
+    status = models.IntegerField(default=0)
 
 class Like(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

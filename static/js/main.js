@@ -164,5 +164,18 @@ $('.reply-btn').click(function() {
 });
 
 $('#confirmButton').click(function() {
-  $('.overlay-text').show();
+  $.ajax({
+    url: '/button_click',
+    method: 'POST',
+    data: {
+      'itemId' : itemid,
+      'csrfmiddlewaretoken' : csrfToken,
+    },
+    success: function(data) {
+      window.location.href = '/';
+    },
+    error: function(error) {
+        console.error('Error:', error);
+    }
+  })
 });

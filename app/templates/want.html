@@ -36,13 +36,16 @@
         <input type="hidden" id="reply_to" name="reply_to">
         <button type="submit" class="message-btn">メッセージを送信する</button>
       </form>
-      <button class="confirm-btn" id="confirmButton">確定する</button>
+      {% if item.user == request.user %}
+        <button class="confirm-btn" id="confirmButton">確定する</button>
+      {% endif %}
     </div>
   </div>
 </div>
 
 <script>
   var itemid = '{{ item.id }}';
+  var csrfToken = '{{ csrf_token }}';
 </script>
 
 {% endblock %}

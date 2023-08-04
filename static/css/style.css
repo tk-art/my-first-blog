@@ -146,13 +146,18 @@ table.reg_form{
   position: relative;
 }
 
+.product-item.completed .uniform-image-size {
+  opacity: 0.5;
+}
+
 .overlay-text {
   position: absolute;
   top: 50%;
   left: 45%;
   transform: translate(-50%, -50%);
-  color: white;
-  display: none;
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 

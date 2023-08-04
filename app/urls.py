@@ -22,6 +22,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('want/<int:item_id>/', views.want, name='want'),
     path('message/<int:item_id>/', views.message, name='message'),
+    path('button_click', views.button_click, name='button_click'),
 
 ]
 
