@@ -24,9 +24,12 @@
   <div class="row">
     {% for item in items %}
     <div class="col-md-3">
-      <div class="product-item">
+      <div class="product-item {% if item.status == 1 %}completed{% endif %}">
         <a href="/food_information/{{ item.id }}" class="similar-link">
           <img src="{{ item.image.url }}" alt="{{ item.name }}" class="uniform-image-size">
+          {% if item.status == 1 %}
+            <div class="overlay-text">取引終了</div>
+          {% endif %}
         </a>
       </div>
       <h4 class="similar-item">{{ item.name }}</h4>

@@ -7,9 +7,12 @@
     {% if results %}
       {% for result in results %}
       <div class="col-md-3">
-        <div class="product-item">
+        <div class="product-item {% if result.status == 1 %}completed{% endif %}">
           <a href="/food_information/{{ result.id }}" class="similar-link">
             <img src="{{ result.image.url }}" alt="{{ result.name }}" class="uniform-image-size">
+            {% if result.status == 1 %}
+              <div class="overlay-text">取引終了</div>
+            {% endif %}
           </a>
         </div>
         <h4 class="similar-item">{{ result.name }}</h4>
