@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-xrf5i(gv3ttr9fqyj924gro#q0-nrykwxs+*21753^%qoj*+3e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['food-exchange-86c863cfe30c.herokuapp.com']
 
 
 # Application definition
