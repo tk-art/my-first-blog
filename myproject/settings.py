@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import datetime
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -81,16 +82,20 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_db',
-        'USER': 'django',
-        'PASSWORD': 'password',
-        'HOST': 'db',
-
+if os.environ.get('USE_HEROKU_DB') == 'true':
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django_db',
+            'USER': 'django',
+            'PASSWORD': 'password',
+            'HOST': 'db',
+        }
+    }
 
 AUTH_USER_MODEL = 'app.CustomUser'
 
