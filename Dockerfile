@@ -10,3 +10,4 @@ RUN /venv/bin/pip install --upgrade pip
 RUN /venv/bin/pip install -r requirements.txt
 RUN pip install pillow
 COPY . /code/
+CMD gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
