@@ -3,3 +3,4 @@ mysqlclient==2.1
 channels
 gunicorn
 dj-database-url
+psycopg2

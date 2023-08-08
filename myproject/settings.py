@@ -84,7 +84,7 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 
 if os.environ.get('USE_HEROKU_DB') == 'true':
     db_config = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    db_config['ENGINE'] = 'django.db.backends.postgresql'  # 例: PostgreSQLエンジン
+    db_config['ENGINE'] = 'django.db.backends.postgresql'
     DATABASES = {
         'default': db_config
     }
