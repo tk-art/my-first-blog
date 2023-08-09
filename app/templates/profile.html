@@ -5,9 +5,9 @@
 <div class="container">
   <div class="profile-container">
     <div class="profile-detail">
-      <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
+      <img src="{{ profile.image.url }}" alt="{{ profile.username }}" class="profile-image-size">
       <div class="profile-info">
-        <h3>{{ profile.name }}</h3>
+        <h3>{{ profile.username }}</h3>
         <p>居住区：{{ profile.region }}</p>
         {% if user.is_authenticated %}
           {% if user.id == request.user.id %}

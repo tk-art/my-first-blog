@@ -39,7 +39,7 @@ class Notification(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models. CASCADE)
-    name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
     region = models.CharField(max_length=100)
     image = models.ImageField(upload_to='item_images/')
     content = models.TextField()

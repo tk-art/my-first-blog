@@ -92,7 +92,7 @@ def profile_edit(request):
         profile_data = form.cleaned_data
         profile = Profile.objects.filter(user=user).first()
         if profile:
-            profile.name = profile_data['name']
+            profile.name = profile_data['username']
             profile.image = profile_data['image']
             profile.content = profile_data['content']
             profile.save()

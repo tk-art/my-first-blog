@@ -27,8 +27,8 @@
             <div class="separator"></div>
             <div class="profile-link">
               <a href="/profile/{{ profile.user_id }}">
-                <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-image-size">
-                <h3>{{ profile.name }}</h3>
+                <img src="{{ profile.image.url }}" alt="{{ profile.username }}" class="profile-image-size">
+                <h3>{{ profile.username }}</h3>
               </a>
             </div>
           </div>
@@ -64,11 +64,11 @@
                 </a>
               </div>
             </div>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </div>
   </div>
-
 </div>
 
 <script>
