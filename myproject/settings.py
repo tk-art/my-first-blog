@@ -91,8 +91,7 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 if os.environ.get('USE_HEROKU_DB') == 'true':
-    db_config = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    db_config['ENGINE'] = 'django.db.backends.postgresql'
+    db_config = dj_database_url.config(default=os.environ.get('JAWSDB_URL'))
     DATABASES = {
         'default': db_config
     }
