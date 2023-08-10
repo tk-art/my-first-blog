@@ -8,9 +8,6 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('app', '0006_user_is_active'),
-    ]
 
     operations = [
         migrations.CreateModel(
