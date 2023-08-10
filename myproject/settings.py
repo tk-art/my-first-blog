@@ -29,9 +29,9 @@ SECRET_KEY = 'django-insecure-xrf5i(gv3ttr9fqyj924gro#q0-nrykwxs+*21753^%qoj*+3e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-DJANGO_ENV = os.environ.get('DJANGO_ENV', 'development')
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
 
-if os.environ.get('DJANGO_ENV') == 'production':
+if DJANGO_ENV == 'production':
     ALLOWED_HOSTS = ['food-exchange-86c863cfe30c.herokuapp.com']
 else:
     ALLOWED_HOSTS = ['*']
@@ -153,6 +153,10 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+if DJANGO_ENV == 'production':
+    MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Default primary key field type
