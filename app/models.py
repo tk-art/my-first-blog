@@ -41,8 +41,9 @@ class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models. CASCADE)
     username = models.CharField(max_length=100)
     region = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='item_images/')
+    image = models.ImageField(upload_to='item_images/', null=True)
     content = models.TextField()
+
 
 class Messa(models.Model):
     sender = models.ForeignKey(CustomUser, related_name='sender', on_delete=models.CASCADE)

@@ -7,7 +7,7 @@ from .models import CustomUser, Item, Like, Comment, Notification, Profile, Mess
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-import os
+from django.conf import settings
 
 
 category_mappings = {
@@ -18,8 +18,6 @@ category_mappings = {
     'お菓子':'snack',
     '飲み物':'drink'
 }
-
-DJANGO_ENV = os.getenv('DJANGO_ENV', 'development')
 
 def top(request):
     items = Item.objects.all()
@@ -40,11 +38,12 @@ def signup(request):
             password = make_password(form.cleaned_data.get('password'))
 
             user = CustomUser.objects.create(username=username, email=email, password=password)
-            if DJANGO_ENV == 'production':
-                Profile.objects.create(user=user, username=username, image='https://res.cloudinary.com/hixtwus3y/image/upload/v1691887901/kin_oonryh.jpg',
+
+            if settings.DJANGO_ENV == 'production':
+                Profile.objects.create(user=user, username=username,
                                        content='これはデフォルトのプロフィールです。好みに応じて編集してください')
             else:
-                Profile.objects.create(user=user, username=username, image='item_images/default_image.jpeg',
+                Profile.objects.create(user=user, username=username, image= 'item_images/default_image.jpeg',
                                        content='これはデフォルトのプロフィールです。好みに応じて編集してください')
 
             login(request, user)

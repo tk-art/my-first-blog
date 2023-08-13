@@ -41,9 +41,9 @@ else:
 
 if DJANGO_ENV == 'production':
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': 'CLOUDINARY_CLOUD_NAME',
-        'API_KEY': 'CLOUDINARY_API_KEY',
-        'API_SECRET': 'CLOUDINARY_API_SECRET',
+        'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
     }
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -180,6 +180,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHNTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 SWESSION_COOKIE_SECURE = False
+SITE_URL = 'http://localhost:8000'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
