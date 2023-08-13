@@ -29,6 +29,9 @@
               <a href="/profile/{{ profile.user_id }}">
                 <img src="{{ profile.image.url }}" alt="{{ profile.username }}" class="profile-image-size">
                 <h3>{{ profile.username }}</h3>
+                {% if item.user == request.user %}
+        　　　　　  <button class="confirm-btn delete-btn" id="confirmButton">食材を削除する</button>
+      　　　　　  {% endif %}
               </a>
             </div>
           </div>

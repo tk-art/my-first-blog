@@ -449,3 +449,9 @@ footer p {
   background: rgb(205, 66, 89);
   border: 1px solid rgb(205, 66, 89);
 }
+
+/* 食材削除 */
+.delete-btn {
+  letter-spacing: 1.5px;
+  font-size: 10px;
+}

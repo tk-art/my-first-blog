@@ -99,8 +99,9 @@ def profile_edit(request):
         profile_data = form.cleaned_data
         profile = Profile.objects.filter(user=user).first()
         if profile:
-            profile.name = profile_data['username']
+            profile.username = profile_data['username']
             profile.image = profile_data['image']
+            profile.region = profile_data['region']
             profile.content = profile_data['content']
             profile.save()
         else:
