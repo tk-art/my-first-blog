@@ -301,3 +301,9 @@ def button_click(request):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error'})
+
+def delete_item(request, item_id):
+    if request.method == 'POST':
+        item = Item.objects.get(id=item_id)
+        item.delete()
+        return redirect('profile', user_id=request.user.id)

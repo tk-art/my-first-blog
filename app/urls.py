@@ -23,6 +23,7 @@ urlpatterns = [
     path('want/<int:item_id>/', views.want, name='want'),
     path('message/<int:item_id>/', views.message, name='message'),
     path('button_click', views.button_click, name='button_click'),
+    path('delete_item/<int:item_id>', views.delete_item, name='delete_item'),
 
 ]
 
