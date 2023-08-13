@@ -61,8 +61,8 @@ $(document).ready(function() {
                 if (response.success) {
                   var commentUser = response.comment.user;
                   var commentText = response.comment.text;
-                  var commentUserElement = $('<p>').text(commentUser);
-                  var commentTextElement = $('<p>').text(commentText);
+                  var commentUserElement = $('<p>').text(commentUser).addClass('comment-user');
+                  var commentTextElement = $('<p>').text(commentText).addClass('comment-text');
                   $('#comment-container').append(commentUserElement);
                   $('#comment-container').append(commentTextElement);
                   form.find('#text').val('');

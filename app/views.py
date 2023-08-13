@@ -164,8 +164,9 @@ def like_item(request, item_id):
     if created:
         item.like_count += 1
         is_liked = True
-        notification_content = f"{request.user.username}さんがアイテム「{item.name}」にいいねしました"
-        Notification.objects.create(user=item.user, item=item, content=notification_content)
+        if request.user != item.user:
+            notification_content = f"{request.user.username}さんがアイテム「{item.name}」にいいねしました"
+            Notification.objects.create(user=item.user, item=item, content=notification_content)
 
     else:
         like.delete()
@@ -191,8 +192,9 @@ def comment_item(request, item_id):
         if form.is_valid():
             text = form.cleaned_data['text']
             comment = Comment.objects.create(user=user, item=item, text=text)
-            notification_content = f"{user.username}さんがアイテム「{item.name}」にコメントしました"
-            Notification.objects.create(user=item.user, item=item, content=notification_content)
+            if request.user != item.user:
+                notification_content = f"{user.username}さんがアイテム「{item.name}」にコメントしました"
+                Notification.objects.create(user=item.user, item=item, content=notification_content)
             comment_data = {
                 'text': comment.text,
                 'user': comment.user.username,
