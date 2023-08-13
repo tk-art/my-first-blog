@@ -5,7 +5,7 @@
 <div class="container">
   <div class="profile-container">
     <div class="profile-detail">
-      {% if profile.image != null %}
+      {% if profile.image %}
         <img src="{{ profile.image.url }}" alt="{{ profile.username }}" class="profile-image-size">
       {% endif %}
         <div class="profile-info">

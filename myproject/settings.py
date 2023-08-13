@@ -15,7 +15,6 @@ import os
 import datetime
 import dj_database_url
 import cloudinary
-import cloudinary_storage
 
 
 
