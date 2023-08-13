@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 import datetime
 import dj_database_url
+import cloudinary
+import cloudinary_storage
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -36,8 +39,16 @@ if DJANGO_ENV == 'production':
 else:
     ALLOWED_HOSTS = ['*']
 
+if DJANGO_ENV == 'production':
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'CLOUDINARY_CLOUD_NAME',
+        'API_KEY': 'CLOUDINARY_API_KEY',
+        'API_SECRET': 'CLOUDINARY_API_SECRET',
+    }
 
-#ALLOWED_HOSTS = ['food-exchange-86c863cfe30c.herokuapp.com']
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 
 # Application definition
@@ -51,6 +62,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'channels',
 ]
 

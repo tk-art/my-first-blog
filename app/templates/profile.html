@@ -5,8 +5,10 @@
 <div class="container">
   <div class="profile-container">
     <div class="profile-detail">
-      <img src="{{ profile.image.url }}" alt="{{ profile.username }}" class="profile-image-size">
-      <div class="profile-info">
+      {% if profile.image != null %}
+        <img src="{{ profile.image.url }}" alt="{{ profile.username }}" class="profile-image-size">
+      {% endif %}
+        <div class="profile-info">
         <h3>{{ profile.username }}</h3>
         <p>居住区：{{ profile.region }}</p>
         {% if user.is_authenticated %}
