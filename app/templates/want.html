@@ -18,12 +18,12 @@
               <img src="{{ message.sender.profile.image.url }}" alt="{{ message.sender.profile.name }}" class="messa-image-size">
             </a>
             <div class="message-info">
-              <p class="sender-name">{{ message.sender.profile.name }}</p>
+              <p class="sender-name">{{ message.sender.profile.username }}</p>
               <p class="message-timestamp">{{ message.timestamp }}</p>
               <p class="message-content">{{ message.content }}</p>
-              {% if item.user != message.sender %}
+              {% if request.user != message.sender %}
                 <button class="reply-btn message-reply" data-reply-to="{{ message.id }}"
-                             data-reply-to-name="{{ message.sender.profile.name }}">返信する</button>
+                             data-reply-to-username="{{ message.sender.profile.username }}">返信する</button>
               {% endif %}
             </div>
           </div>

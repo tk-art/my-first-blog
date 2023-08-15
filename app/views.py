@@ -281,7 +281,7 @@ def message(request, item_id):
             sender = None
             message_data = {
                 'message': message.content,
-                'user' : user.profile.name,
+                'user' : user.profile.username,
                 'image' : user.profile.image.url,
                 'sender' : message.sender_id,
                 'timestamp' : formatted_timestamp
