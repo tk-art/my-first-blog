@@ -10,7 +10,7 @@
         <div class="notification">
           <p class="content">
             {{ notification.content }}<br>
-            {{ notification.timestamp }}
+            {{ notification.timestamp|date:"Y/n/j a g:i" }}
           </p>
         </div>
       {% endfor %}

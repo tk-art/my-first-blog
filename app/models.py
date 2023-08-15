@@ -35,7 +35,7 @@ class Notification(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
     content = models.TextField()
     read = models.BooleanField(default=False)
-    timestamp = models.DateField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models. CASCADE)
