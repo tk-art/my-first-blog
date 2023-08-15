@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.conf import settings
+from django.urls import reverse
 
 
 category_mappings = {
@@ -186,6 +187,7 @@ def like_item(request, item_id):
 def comment_item(request, item_id):
     item = get_object_or_404(Item, pk=item_id)
     user = request.user
+    foodinfo_url = reverse('food_information', args=[item.id])
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -193,7 +195,7 @@ def comment_item(request, item_id):
             text = form.cleaned_data['text']
             comment = Comment.objects.create(user=user, item=item, text=text)
             if request.user != item.user:
-                notification_content = f"{user.username}さんがアイテム「{item.name}」にコメントしました"
+                notification_content = f"{user.username}さんがアイテム「<a href='{foodinfo_url}'>{item.name}</a>」にコメントしました"
                 Notification.objects.create(user=item.user, item=item, content=notification_content)
             comment_data = {
                 'text': comment.text,
@@ -260,6 +262,7 @@ def message(request, item_id):
         if form.is_valid():
             message = form.cleaned_data['content']
             reply_to = form.cleaned_data['reply_to']
+            want_url = reverse('want', args=[item.id])
 
 
             if reply_to:
@@ -267,14 +270,14 @@ def message(request, item_id):
                 original_message = Messa.objects.get(id=reply_to_id)
                 receiver = original_message.sender
                 message = Messa.objects.create(sender=user, receiver=receiver, item=item, content=message, reply_to=original_message)
-                notification_content = f"{item.user}さんがあなたのメッセージ「{original_message.content}」に対して返信しました"
+                notification_content = f"{item.user}さんがあなたのメッセージ「<a href='{want_url}'>{original_message.content}</a>」に対して返信しました"
                 Notification.objects.create(user=receiver, item=item, content=notification_content)
 
             else:
                 message = Messa.objects.create(sender=user, receiver=item.user, item=item, content=message)
 
             if item.user != user:
-                notification_content = f"{user.username}さんがあなたの食品「{item.name}」に対してメッセージを送信しました"
+                notification_content = f"{user.username}さんがあなたの食品「<a href='{want_url}'>{item.name}</a>」に対してメッセージを送信しました"
                 Notification.objects.create(user=item.user, item=item, content=notification_content)
 
             formatted_timestamp = message.timestamp.strftime("%B %d, %Y, %I:%M %p")

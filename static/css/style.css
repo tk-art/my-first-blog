@@ -425,7 +425,8 @@ footer p {
   border: 1px solid rgb(146, 147, 152);
   color: black;
   border-radius: 5px;
-  padding: 6px 12px;
+  padding: 8px 16px;
+  margin-right: auto;
   background: #fff;
   margin-bottom: 18px;
 }

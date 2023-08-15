@@ -9,8 +9,8 @@
       {% for notification in page_obj %}
         <div class="notification">
           <p class="content">
-            {{ notification.content }}<br>
-            {{ notification.timestamp|date:"Y/n/j a g:i" }}
+            {{ notification.content|safe }}<br>
+            {{ notification.timestamp|date:"Y/n/j a G:i" }}
           </p>
         </div>
       {% endfor %}
